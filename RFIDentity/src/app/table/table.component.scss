@@ -1,40 +1,48 @@
 $headerColor: #2cd8f7;
 
-div {
+div.tablecontainer {
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 1rem;
   width: 90%;
   max-width: 100rem;
   margin: 0 auto 2rem auto;
   margin-top: 2rem;
   text-align: center;
-  background: linear-gradient(to bottom, #c7c4ca, #a9a9aa);
   padding: 1rem;
-  border-bottom-right-radius: 12px;
-  border-bottom-left-radius: 12px;
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
 }
 
+div.toolbar {
+  display: flex;
+  align-content: center;
+  justify-content: end;
+}
 table {
   width: 100%;
+  box-shadow: none;
+  border: 1px solid hsla(241, 100%, 24%, 0.158);
 }
 .mat-column-AssetId {
-  border-right: 1px solid currentColor;
   padding-right: 24px;
   text-align: center;
   font-weight: bold;
 }
 
 .mat-mdc-row .mat-mdc-cell {
-  border-bottom: 1px solid transparent;
-  border-top: 1px solid transparent;
+  border-bottom: 1px solid hsla(241, 100%, 24%, 0.158);
+  border-top: 1px solid hsla(241, 100%, 24%, 0.158);
   cursor: pointer;
 }
 .mat-mdc-row:hover .mat-mdc-cell {
   border-color: currentColor;
 }
-tr .mat-header-row {
-  background-color: black;
+span.active {
+  color: green;
+}
+span.inactive {
+  color: red;
+}
+.mat-mdc-cell {
+  border-right: 1px solid hsla(241, 100%, 24%, 0.158);
 }
