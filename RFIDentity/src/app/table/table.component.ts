@@ -4,6 +4,7 @@ import {
   DestroyRef,
   inject,
   OnInit,
+  signal,
   ViewChild,
 } from '@angular/core';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -18,6 +19,7 @@ import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatButton, MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 const ELEMENT_DATA: Asset[] = assets;
 
@@ -33,11 +35,13 @@ const ELEMENT_DATA: Asset[] = assets;
     FormsModule,
     MatButtonModule,
     MatIconModule,
+    MatProgressSpinnerModule,
   ],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
 })
 export class TableComponent implements AfterViewInit, OnInit {
+  isFetching = signal(false);
   dataSource = new MatTableDataSource<Asset>(ELEMENT_DATA);
   filterValue = '';
 
@@ -59,6 +63,7 @@ export class TableComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   ngOnInit() {
+    this.isFetching.set(true);
     const subscription = this.httpClient
       .get<Asset[]>('https://66b4810f9f9169621ea33918.mockapi.io/rfid/assets')
       .subscribe({
@@ -66,6 +71,7 @@ export class TableComponent implements AfterViewInit, OnInit {
           this.dataSource.data = resData; // Assign the response data directly to the dataSource
           console.log(resData);
         },
+        complete: () => this.isFetching.set(false),
       });
 
     this.destroyRef.onDestroy(() => {

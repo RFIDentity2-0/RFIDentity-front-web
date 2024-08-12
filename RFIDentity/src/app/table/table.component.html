@@ -1,5 +1,6 @@
 <div class="tablecontainer">
   <h1>Assets</h1>
+  @if (isFetching()) {<mat-spinner></mat-spinner>} @else {
   <div class="toolbar">
     <mat-form-field class="example-form-field">
       <mat-label>Search</mat-label>
@@ -112,5 +113,6 @@
     showFirstLastButtons
     aria-label="Select page of assets"
   >
-  </mat-paginator>
+  </mat-paginator
+  >}
 </div>
