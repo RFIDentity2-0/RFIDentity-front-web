@@ -1,0 +1,39 @@
+<div>
+  <div>
+    <h5>Area Filter</h5>
+    <div>
+      <p>Area</p>
+      <section class="example-section">
+        <span class="example-list-section">
+          <mat-checkbox
+            class="example-margin"
+            [checked]="room().completed"
+            [indeterminate]="partiallyComplete()"
+            (change)="update($event.checked)"
+          >
+            {{ room().name }}
+          </mat-checkbox>
+        </span>
+        <span class="example-list-section">
+          <ul>
+            @for (subtask of room().subroom; track subtask; let i = $index) {
+            <li>
+              <mat-checkbox
+                [checked]="subtask.completed"
+                (change)="update($event.checked, i)"
+              >
+                {{ subtask.name }}
+              </mat-checkbox>
+            </li>
+            }
+          </ul>
+        </span>
+      </section>
+    </div>
+  </div>
+  <div class="gridcontainer">
+    @for (room of rooms; track room.room ){
+    <app-roomtile [roomnum]="room.room"></app-roomtile>
+    }
+  </div>
+</div>

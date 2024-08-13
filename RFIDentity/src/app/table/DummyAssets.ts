@@ -1,4 +1,4 @@
-import { Asset } from './table.module';
+import { Asset } from './table.model';
 
 export const assets: Asset[] = [
   {

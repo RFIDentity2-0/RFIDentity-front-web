@@ -10,7 +10,7 @@ import {
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
-import { Asset } from './table.module';
+import { Asset } from './table.model';
 import { assets } from './DummyAssets';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { HttpClient } from '@angular/common/http';
@@ -61,6 +61,11 @@ export class TableComponent implements AfterViewInit, OnInit {
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  // actions function
+  checkifworking(element: string) {
+    console.log(element);
+  }
 
   ngOnInit() {
     this.isFetching.set(true);

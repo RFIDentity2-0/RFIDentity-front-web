@@ -101,7 +101,9 @@
 
     <ng-container matColumnDef="Action">
       <th mat-header-cell *matHeaderCellDef>Action</th>
-      <td mat-cell *matCellDef="let element">{{ element.Action }}</td>
+      <td mat-cell *matCellDef="let element">
+        <button (click)="checkifworking(element.AssetId)">klik</button>
+      </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
