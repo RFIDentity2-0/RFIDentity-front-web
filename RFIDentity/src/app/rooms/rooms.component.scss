@@ -1,9 +1,21 @@
 div.gridcontainer {
   display: grid;
   grid-template-columns: auto auto auto;
-  background-color: #ffffff;
-  padding: 10px;
+  padding: 20px;
   row-gap: 20px;
   column-gap: 20px;
-  border: black solid 2px;
+}
+.filter-container {
+  padding: 20px;
+}
+.background {
+  background-color: azure;
+  padding: 10px;
+}
+.filter-container {
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 20px;
+  background-color: white;
+  border: grey solid 1px;
 }

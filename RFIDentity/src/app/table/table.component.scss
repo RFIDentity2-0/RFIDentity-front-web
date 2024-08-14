@@ -5,13 +5,10 @@ div.tablecontainer {
   align-items: center;
   flex-direction: column;
   gap: 1rem;
-  width: 90%;
-  max-width: 100rem;
-  margin: 0 auto 2rem auto;
-  margin-top: 2rem;
+  height: 100%;
+  background-color: azure;
   text-align: center;
   padding: 1rem;
-  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
 }
 
 div.toolbar {
@@ -34,10 +31,10 @@ table {
 .mat-mdc-row .mat-mdc-cell {
   border-bottom: 1px solid hsla(241, 100%, 24%, 0.158);
   border-top: 1px solid hsla(241, 100%, 24%, 0.158);
-  cursor: pointer;
 }
 .mat-mdc-row:hover .mat-mdc-cell {
-  border-color: currentColor;
+  border-color: rgba(128, 128, 128, 0.144);
+  background-color: rgba(128, 128, 128, 0.144);
 }
 span.active {
   color: green;

@@ -1,0 +1,69 @@
+<!-- overlay-button.component.html -->
+<button (click)="onToggleOverlayClick()">Toggle Overlay</button>
+
+@if (isOverlayVisible) {
+<div class="overlay" (click)="onOverlayClick($event)">
+  <div class="overlay-content" #overlayContent>
+    <!-- Your overlay content goes here -->
+    <div class="input-fields">
+      <div class="input-field">
+        <h3>SAP</h3>
+        <mat-form-field class="example-full-width">
+          <mat-label>AssetId</mat-label>
+          <input matInput disabled [(ngModel)]="dataSource.AssetId" />
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Description</mat-label>
+          <input matInput [(ngModel)]="dataSource.Description" />
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Room</mat-label>
+          <input matInput [(ngModel)]="dataSource.Room" />
+        </mat-form-field>
+      </div>
+      <div class="input-field">
+        <h3>VM</h3>
+        <mat-form-field class="example-full-width">
+          <mat-label>AssetId</mat-label>
+          <input matInput disabled value="temp" />
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>System Name</mat-label>
+          <input matInput value="temp" />
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>DNS-Name</mat-label>
+          <input matInput value="temp" />
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Type</mat-label>
+          <input matInput value="temp" />
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Manufacturer</mat-label>
+          <input matInput value="temp" />
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Hardware Type</mat-label>
+          <input matInput value="temp" />
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Serial No</mat-label>
+          <input matInput value="temp" />
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Status</mat-label>
+          <input matInput value="temp" />
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Department</mat-label>
+          <input matInput value="temp" />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="submit">
+      <button mat-button (click)="toggleOverlay()">Submit</button>
+    </div>
+  </div>
+</div>
+}

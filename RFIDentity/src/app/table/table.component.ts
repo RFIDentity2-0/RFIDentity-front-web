@@ -20,6 +20,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatButton, MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ActionsComponent } from '../actions/actions.component';
 
 const ELEMENT_DATA: Asset[] = assets;
 
@@ -36,6 +37,7 @@ const ELEMENT_DATA: Asset[] = assets;
     MatButtonModule,
     MatIconModule,
     MatProgressSpinnerModule,
+    ActionsComponent,
   ],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',

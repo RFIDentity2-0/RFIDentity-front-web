@@ -5,7 +5,7 @@ import {
   signal,
 } from '@angular/core';
 import { Asset, RoomAssets, RoomSelection } from './rooms.model';
-import { RoomtileComponent } from '../roomtile/roomtile.component';
+import { RoomtileComponent } from './roomtile/roomtile.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
 // Create sample assets
