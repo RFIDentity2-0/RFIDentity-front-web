@@ -10,59 +10,61 @@
         <h3>SAP</h3>
         <mat-form-field class="example-full-width">
           <mat-label>AssetId</mat-label>
-          <input matInput disabled [(ngModel)]="dataSource.AssetId" />
+          <input matInput disabled [(ngModel)]="dataSource.assetId" />
         </mat-form-field>
         <mat-form-field class="example-full-width">
           <mat-label>Description</mat-label>
-          <input matInput [(ngModel)]="dataSource.Description" />
+          <input matInput [(ngModel)]="dataSource.description" />
         </mat-form-field>
         <mat-form-field class="example-full-width">
           <mat-label>Room</mat-label>
-          <input matInput [(ngModel)]="dataSource.Room" />
+          <input matInput [(ngModel)]="dataSource.sapRoom" />
         </mat-form-field>
+        <button mat-button (click)="submitSapData()">Submit</button>
       </div>
       <div class="input-field">
         <h3>VM</h3>
         <mat-form-field class="example-full-width">
           <mat-label>AssetId</mat-label>
-          <input matInput disabled value="temp" />
+          <input matInput disabled [(ngModel)]="dataSource.assetId" />
         </mat-form-field>
         <mat-form-field class="example-full-width">
           <mat-label>System Name</mat-label>
-          <input matInput value="temp" />
+          <input matInput [(ngModel)]="dataSource.systemName" />
         </mat-form-field>
         <mat-form-field class="example-full-width">
           <mat-label>DNS-Name</mat-label>
-          <input matInput value="temp" />
+          <input matInput [(ngModel)]="dataSource.dnsName" />
         </mat-form-field>
         <mat-form-field class="example-full-width">
           <mat-label>Type</mat-label>
-          <input matInput value="temp" />
+          <input matInput [(ngModel)]="dataSource.type" />
         </mat-form-field>
         <mat-form-field class="example-full-width">
           <mat-label>Manufacturer</mat-label>
-          <input matInput value="temp" />
+          <input matInput [(ngModel)]="dataSource.manufacturer" />
         </mat-form-field>
         <mat-form-field class="example-full-width">
           <mat-label>Hardware Type</mat-label>
-          <input matInput value="temp" />
+          <input matInput [(ngModel)]="dataSource.hardwareType" />
         </mat-form-field>
         <mat-form-field class="example-full-width">
           <mat-label>Serial No</mat-label>
-          <input matInput value="temp" />
+          <input matInput [(ngModel)]="dataSource.serialNo" />
         </mat-form-field>
         <mat-form-field class="example-full-width">
           <mat-label>Status</mat-label>
-          <input matInput value="temp" />
+          <input matInput [(ngModel)]="dataSource.status" />
         </mat-form-field>
         <mat-form-field class="example-full-width">
           <mat-label>Department</mat-label>
-          <input matInput value="temp" />
+          <input matInput [(ngModel)]="dataSource.department" />
         </mat-form-field>
+        <button mat-button (click)="submitVMData()">Submit</button>
       </div>
     </div>
     <div class="submit">
-      <button mat-button (click)="toggleOverlay()">Submit</button>
+      <button mat-button (click)="onFinish()">Finish</button>
     </div>
   </div>
 </div>

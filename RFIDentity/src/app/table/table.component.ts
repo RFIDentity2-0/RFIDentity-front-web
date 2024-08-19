@@ -10,8 +10,8 @@ import {
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
-import { Asset } from './table.model';
-import { assets } from './DummyAssets';
+import { ApiResponse, Asset, Inventory } from './table.model';
+// import { assets } from './DummyAssets';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { HttpClient } from '@angular/common/http';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -21,9 +21,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButton, MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ActionsComponent } from '../actions/actions.component';
-
-const ELEMENT_DATA: Asset[] = assets;
-
+import { MatSelectModule } from '@angular/material/select';
 @Component({
   selector: 'app-table',
   standalone: true,
@@ -38,24 +36,26 @@ const ELEMENT_DATA: Asset[] = assets;
     MatIconModule,
     MatProgressSpinnerModule,
     ActionsComponent,
+    MatSelectModule,
   ],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
 })
 export class TableComponent implements AfterViewInit, OnInit {
   isFetching = signal(false);
-  dataSource = new MatTableDataSource<Asset>(ELEMENT_DATA);
+  dataSource = new MatTableDataSource<Asset>();
   filterValue = '';
 
   displayedColumns: string[] = [
-    'AssetId',
-    'Description',
-    'VM_Location',
-    'SAP_Room',
-    'Status',
-    'Action',
+    'assetId',
+    'description',
+    'vmLocation',
+    'sapRoom',
+    'status',
+    'action',
   ];
-
+  inventoryList: Inventory[] = [{ inventory: 1, date: new Date('2019-01-16') }];
+  currentInventory = this.inventoryList[0].inventory;
   private httpClient = inject(HttpClient);
   private destroyRef = inject(DestroyRef);
 
@@ -63,20 +63,28 @@ export class TableComponent implements AfterViewInit, OnInit {
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(ActionsComponent) actionsComponent!: ActionsComponent;
 
   // actions function
   checkifworking(element: string) {
     console.log(element);
   }
-
-  ngOnInit() {
+  onFinishHandler() {
+    this.FetchTableData();
+  }
+  async FetchTableData() {
     this.isFetching.set(true);
     const subscription = this.httpClient
-      .get<Asset[]>('https://66b4810f9f9169621ea33918.mockapi.io/rfid/assets')
+      .get<ApiResponse>(
+        'http://localhost:8080/api/inventory/getDashboard?page=0&size=10'
+      )
+      // .get<ApiResponse>(
+      //   'https://66b4810f9f9169621ea33918.mockapi.io/rfid/assets'
+      // )
       .subscribe({
         next: (resData) => {
-          this.dataSource.data = resData; // Assign the response data directly to the dataSource
-          console.log(resData);
+          this.dataSource.data = resData.content; // Assign the response data directly to the dataSource
+          console.log(resData.content);
         },
         complete: () => this.isFetching.set(false),
       });
@@ -85,7 +93,14 @@ export class TableComponent implements AfterViewInit, OnInit {
       subscription.unsubscribe();
     });
   }
+  ngOnInit() {
+    this.FetchTableData();
+  }
 
+  onDeleteSearchValue() {
+    this.filterValue = '';
+    this.applyFilter(this.filterValue);
+  }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;

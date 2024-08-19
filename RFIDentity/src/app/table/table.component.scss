@@ -2,7 +2,6 @@ $headerColor: #2cd8f7;
 
 div.tablecontainer {
   display: flex;
-  align-items: center;
   flex-direction: column;
   gap: 1rem;
   height: 100%;
@@ -15,7 +14,17 @@ div.toolbar {
   display: flex;
   width: 100%;
   align-content: center;
-  justify-content: end;
+}
+div.searchbar {
+  display: flex;
+  justify-content: right;
+  width: 100%;
+}
+div.inventory-selector {
+  display: flex;
+  width: 100%;
+  justify-content: start;
+  align-items: start;
 }
 table {
   width: 100%;
@@ -44,4 +53,9 @@ span.inactive {
 }
 .mat-mdc-cell {
   border-right: 1px solid hsla(241, 100%, 24%, 0.158);
+}
+.table-label {
+  display: flex;
+  align-items: left;
+  justify-content: left;
 }
