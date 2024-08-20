@@ -31,7 +31,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ActionsComponent {
   isFetching = signal(false);
-
+  messageSAP = '';
+  messageVM = '';
   dataSource = <ActionsApiResponse>{
     assetId: 'string',
     description: 'string',
@@ -60,7 +61,7 @@ export class ActionsComponent {
 
   onFinish() {
     this.finishEvent.emit();
-    this.toggleOverlay;
+    this.toggleOverlay();
   }
   // Data fetching for actions tab
   async fetchData() {
@@ -115,8 +116,10 @@ export class ActionsComponent {
         )
         .toPromise();
       console.log('Data successfully submitted.');
+      this.messageSAP = 'Data succesfully submitted.';
     } catch (error) {
       console.error('Error submitting data', error);
+      this.messageSAP = 'Error submiting data.';
     } finally {
       this.isFetching.set(false);
       // this.toggleOverlay(); // Hide overlay after submission
@@ -152,8 +155,10 @@ export class ActionsComponent {
         .toPromise();
 
       console.log('Data successfully submitted.');
+      this.messageVM = 'Data successfully submitted.';
     } catch (error) {
       console.error('Error submitting data', error);
+      this.messageVM = 'Error submiting data.';
     } finally {
       this.isFetching.set(false);
       // this.toggleOverlay(); // Hide overlay after submission

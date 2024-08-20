@@ -1,9 +1,10 @@
 <div class="roomtile">
   <p>{{ roomnum }}</p>
+
   <div class="table-container">
     <app-roomtable></app-roomtable>
   </div>
   <div class="tablefooter">
-    <button mat-button>View</button>
+    <button mat-button (click)="onViewRoom()">View</button>
   </div>
 </div>

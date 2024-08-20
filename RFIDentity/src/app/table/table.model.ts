@@ -12,6 +12,6 @@ export interface ApiResponse {
   totalElements: number;
 }
 export interface Inventory {
-  inventory: number;
+  id: number;
   date: Date;
 }

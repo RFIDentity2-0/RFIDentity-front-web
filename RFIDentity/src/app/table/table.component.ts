@@ -3,10 +3,13 @@ import {
   Component,
   DestroyRef,
   inject,
+  OnChanges,
   OnInit,
   signal,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
+
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
@@ -54,8 +57,11 @@ export class TableComponent implements AfterViewInit, OnInit {
     'status',
     'action',
   ];
-  inventoryList: Inventory[] = [{ inventory: 1, date: new Date('2019-01-16') }];
-  currentInventory = this.inventoryList[0].inventory;
+  inventoryList: Inventory[] = [
+    { id: 1, date: new Date('2019-01-16') },
+    { id: 42, date: new Date('2019-01-16') },
+  ];
+  currentInventory = this.inventoryList[0].id;
   private httpClient = inject(HttpClient);
   private destroyRef = inject(DestroyRef);
 
@@ -72,11 +78,27 @@ export class TableComponent implements AfterViewInit, OnInit {
   onFinishHandler() {
     this.FetchTableData();
   }
+
+  async FetchInventorys() {
+    const subscription = this.httpClient
+      .get<Inventory[]>('http://localhost:8080/api/inventory/getAllInventories')
+      .subscribe({
+        next: (resData) => {
+          this.inventoryList = resData;
+          console.log(this.inventoryList);
+          console.log(this.currentInventory);
+        },
+      });
+    this.destroyRef.onDestroy(() => {
+      subscription.unsubscribe();
+    });
+  }
+
   async FetchTableData() {
     this.isFetching.set(true);
     const subscription = this.httpClient
       .get<ApiResponse>(
-        'http://localhost:8080/api/inventory/getDashboard?page=0&size=10'
+        `http://localhost:8080/api/inventory/getDashboard?page=0&size=10&inventoryId=${this.currentInventory}`
       )
       // .get<ApiResponse>(
       //   'https://66b4810f9f9169621ea33918.mockapi.io/rfid/assets'
@@ -93,7 +115,8 @@ export class TableComponent implements AfterViewInit, OnInit {
       subscription.unsubscribe();
     });
   }
-  ngOnInit() {
+  async ngOnInit() {
+    await this.FetchInventorys();
     this.FetchTableData();
   }
 

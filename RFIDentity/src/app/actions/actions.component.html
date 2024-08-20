@@ -1,5 +1,5 @@
 <!-- overlay-button.component.html -->
-<button (click)="onToggleOverlayClick()">Toggle Overlay</button>
+<button class="actions" (click)="onToggleOverlayClick()">Actions</button>
 
 @if (isOverlayVisible) {
 <div class="overlay" (click)="onOverlayClick($event)">
@@ -21,6 +21,7 @@
           <input matInput [(ngModel)]="dataSource.sapRoom" />
         </mat-form-field>
         <button mat-button (click)="submitSapData()">Submit</button>
+        <p>{{ messageSAP }}</p>
       </div>
       <div class="input-field">
         <h3>VM</h3>
@@ -61,6 +62,7 @@
           <input matInput [(ngModel)]="dataSource.department" />
         </mat-form-field>
         <button mat-button (click)="submitVMData()">Submit</button>
+        <p>{{ messageVM }}</p>
       </div>
     </div>
     <div class="submit">

@@ -47,12 +47,12 @@ export class RoomsComponent {
 
   // ----------------------------checkbox logic---------------------------
   readonly room = signal<RoomSelection>({
-    name: 'Parent room',
+    name: 'Select All',
     completed: false,
     subroom: [
-      { name: 'Child room 1', completed: false },
-      { name: 'Child room 2', completed: false },
-      { name: 'Child room 3', completed: false },
+      { name: 'room1', completed: false },
+      { name: 'room2', completed: false },
+      { name: 'room3', completed: false },
     ],
   });
 

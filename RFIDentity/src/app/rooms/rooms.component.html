@@ -16,13 +16,13 @@
         </span>
         <span class="example-list-section">
           <ul>
-            @for (subtask of room().subroom; track subtask; let i = $index) {
+            @for (subroom of room().subroom; track subroom; let i = $index) {
             <li>
               <mat-checkbox
-                [checked]="subtask.completed"
+                [checked]="subroom.completed"
                 (change)="update($event.checked, i)"
               >
-                {{ subtask.name }}
+                {{ subroom.name }}
               </mat-checkbox>
             </li>
             }

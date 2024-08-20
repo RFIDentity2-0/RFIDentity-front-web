@@ -3,6 +3,7 @@ import { HomeComponent } from './home/home.component';
 import { TableComponent } from './table/table.component';
 import { RoomsComponent } from './rooms/rooms.component';
 import { DashboardErrorComponent } from './dashboard-error/dashboard-error.component';
+import { RoomDetailComponent } from './room-detail/room-detail.component';
 
 export const routes: Routes = [
   {
@@ -17,12 +18,13 @@ export const routes: Routes = [
     path: 'rooms',
     component: RoomsComponent,
   },
-  {
-    path: '**',
-    redirectTo: '404',
-  },
+  // {
+  //   path: '**',
+  //   redirectTo: '404',
+  // },
   {
     path: '404',
     component: DashboardErrorComponent,
   },
+  { path: 'rooms/:roomnum', component: RoomDetailComponent },
 ];

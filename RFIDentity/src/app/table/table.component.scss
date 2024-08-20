@@ -45,11 +45,23 @@ table {
   border-color: rgba(128, 128, 128, 0.144);
   background-color: rgba(128, 128, 128, 0.144);
 }
-span.active {
+.active {
   color: green;
 }
-span.inactive {
+.status {
+  display: flex;
+  align-content: center;
+  flex-direction: row;
+}
+.status-field {
+  display: flex;
+  align-items: center;
+}
+.inactive {
   color: red;
+}
+.warning {
+  color: grey;
 }
 .mat-mdc-cell {
   border-right: 1px solid hsla(241, 100%, 24%, 0.158);
@@ -58,4 +70,7 @@ span.inactive {
   display: flex;
   align-items: left;
   justify-content: left;
+}
+.mat-icon {
+  transform: scale(0.85);
 }
