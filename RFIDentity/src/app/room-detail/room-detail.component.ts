@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TableComponent } from '../table/table.component';
+import { RoomDetailedTableComponent } from '../room-detailed-table/room-detailed-table.component';
 @Component({
   selector: 'app-room-detail',
   standalone: true,
-  imports: [TableComponent],
+  imports: [TableComponent, RoomDetailedTableComponent],
   templateUrl: './room-detail.component.html',
   styleUrl: './room-detail.component.scss',
 })

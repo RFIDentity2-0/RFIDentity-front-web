@@ -9,7 +9,7 @@
         <mat-label>Select Inventory</mat-label>
         <mat-select
           [(value)]="currentInventory"
-          (selectionChange)="FetchTableData()"
+          (selectionChange)="onSelectInventory()"
         >
           @for (inventory of inventoryList; track inventory) {
           <mat-option [value]="inventory.id">{{ inventory.id }}</mat-option>

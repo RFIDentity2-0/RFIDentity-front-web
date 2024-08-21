@@ -105,7 +105,7 @@ export class ActionsComponent {
       // API call to update SAP item
       await this.httpClient
         .put(
-          `http://localhost:8080/api/inventory/updateSapItem/${this.InventoryId}/${this.AssetId}`,
+          `http://localhost:8080/api/sapItem/updateSapItem/${this.InventoryId}/${this.AssetId}`,
           sapItemData,
           {
             headers: {
@@ -143,7 +143,7 @@ export class ActionsComponent {
       // API call to update VM item
       await this.httpClient
         .put(
-          `http://localhost:8080/api/inventory/updateVmItem/${this.InventoryId}/${this.AssetId}`,
+          `http://localhost:8080/api/vmItem/updateVmItem/${this.InventoryId}/${this.AssetId}`,
           vmItemData,
           {
             headers: {

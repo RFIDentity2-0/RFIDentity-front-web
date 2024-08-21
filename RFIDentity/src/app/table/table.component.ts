@@ -3,13 +3,11 @@ import {
   Component,
   DestroyRef,
   inject,
-  OnChanges,
   OnInit,
   signal,
-  SimpleChanges,
   ViewChild,
 } from '@angular/core';
-
+import { InventoryService } from '../services/inventory.service';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
@@ -21,7 +19,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatButton, MatButtonModule } from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ActionsComponent } from '../actions/actions.component';
 import { MatSelectModule } from '@angular/material/select';
@@ -57,28 +55,44 @@ export class TableComponent implements AfterViewInit, OnInit {
     'status',
     'action',
   ];
-  inventoryList: Inventory[] = [
-    { id: 1, date: new Date('2019-01-16') },
-    { id: 42, date: new Date('2019-01-16') },
-  ];
+
+  // Inventory
+  inventoryList: Inventory[] = [{ id: 1, date: new Date('2019-01-16') }];
   currentInventory = this.inventoryList[0].id;
+
+  // getCurrentInventory(): void {
+  //   this.currentInventory = this.inventoryService.getCurrentInventory();
+  // }
+  testVariable: number | null = 0;
+
+  getCurrentInventory(): void {
+    this.currentInventory = this.inventoryService.getCurrentInventory();
+  }
+  //
   private httpClient = inject(HttpClient);
   private destroyRef = inject(DestroyRef);
 
-  constructor(private _liveAnnouncer: LiveAnnouncer) {}
+  constructor(
+    private _liveAnnouncer: LiveAnnouncer,
+    private inventoryService: InventoryService
+  ) {}
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(ActionsComponent) actionsComponent!: ActionsComponent;
 
   // actions function
-  checkifworking(element: string) {
-    console.log(element);
-  }
+
   onFinishHandler() {
     this.FetchTableData();
   }
 
+  onSelectInventory() {
+    this.inventoryService.setCurrentInventory(this.currentInventory);
+    this.getCurrentInventory();
+
+    this.FetchTableData();
+  }
   async FetchInventorys() {
     const subscription = this.httpClient
       .get<Inventory[]>('http://localhost:8080/api/inventory/getAllInventories')
@@ -116,6 +130,8 @@ export class TableComponent implements AfterViewInit, OnInit {
     });
   }
   async ngOnInit() {
+    this.inventoryService.setCurrentInventory(this.currentInventory);
+    this.getCurrentInventory();
     await this.FetchInventorys();
     this.FetchTableData();
   }

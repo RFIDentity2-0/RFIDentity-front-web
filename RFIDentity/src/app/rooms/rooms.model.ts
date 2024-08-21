@@ -14,6 +14,6 @@ export interface RoomAssets {
 
 export interface RoomSelection {
   name: string;
-  completed: boolean;
+  selected: boolean;
   subroom?: RoomSelection[];
 }

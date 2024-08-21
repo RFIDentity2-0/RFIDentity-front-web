@@ -2,12 +2,16 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  OnInit,
   signal,
 } from '@angular/core';
-import { Asset, RoomAssets, RoomSelection } from './rooms.model';
+import { RoomSelection } from './rooms.model';
 import { RoomtileComponent } from './roomtile/roomtile.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { InventoryService } from '../services/inventory.service';
 // Create sample assets
 const ROOMS = [
   {
@@ -36,23 +40,38 @@ const ROOMS = [
 @Component({
   selector: 'app-rooms',
   standalone: true,
-  imports: [RoomtileComponent, MatCheckboxModule, FormsModule],
+  imports: [
+    RoomtileComponent,
+    MatCheckboxModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatSelectModule,
+  ],
   templateUrl: './rooms.component.html',
   styleUrl: './rooms.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RoomsComponent {
+export class RoomsComponent implements OnInit {
+  // Service Implementantion
+  constructor(private inventoryService: InventoryService) {}
+  currentInventory = 0;
+  getCurrentInventory(): void {
+    this.currentInventory = this.inventoryService.getCurrentInventory();
+  }
+  ngOnInit() {
+    this.getCurrentInventory();
+  }
   // Create sample room assets
   rooms = ROOMS;
 
   // ----------------------------checkbox logic---------------------------
   readonly room = signal<RoomSelection>({
     name: 'Select All',
-    completed: false,
+    selected: false,
     subroom: [
-      { name: 'room1', completed: false },
-      { name: 'room2', completed: false },
-      { name: 'room3', completed: false },
+      { name: 'room1', selected: false },
+      { name: 'room2', selected: false },
+      { name: 'room3', selected: false },
     ],
   });
 
@@ -62,19 +81,19 @@ export class RoomsComponent {
       return false;
     }
     return (
-      room.subroom.some((t) => t.completed) &&
-      !room.subroom.every((t) => t.completed)
+      room.subroom.some((t) => t.selected) &&
+      !room.subroom.every((t) => t.selected)
     );
   });
 
-  update(completed: boolean, index?: number) {
+  update(selected: boolean, index?: number) {
     this.room.update((room) => {
       if (index === undefined) {
-        room.completed = completed;
-        room.subroom?.forEach((t) => (t.completed = completed));
+        room.selected = selected;
+        room.subroom?.forEach((t) => (t.selected = selected));
       } else {
-        room.subroom![index].completed = completed;
-        room.completed = room.subroom?.every((t) => t.completed) ?? true;
+        room.subroom![index].selected = selected;
+        room.selected = room.subroom?.every((t) => t.selected) ?? true;
       }
       return { ...room };
     });

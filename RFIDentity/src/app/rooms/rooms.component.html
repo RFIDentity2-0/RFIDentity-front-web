@@ -1,13 +1,26 @@
 <div class="background">
   <div class="filter-container">
+    <div class="inventory-selector">
+      <!-- <mat-form-field>
+        <mat-label>Select Inventory</mat-label>
+        <mat-select
+          [(value)]="currentInventory"
+          (selectionChange)="FetchTableData()"
+        >
+          @for (inventory of inventoryList; track inventory) {
+          <mat-option [value]="inventory.id">{{ inventory.id }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field> -->
+    </div>
+    <h4>Inventory: {{ currentInventory }}</h4>
     <h5>Area Filter</h5>
     <div>
-      <p>Area</p>
       <section class="example-section">
         <span class="example-list-section">
           <mat-checkbox
             class="example-margin"
-            [checked]="room().completed"
+            [checked]="room().selected"
             [indeterminate]="partiallyComplete()"
             (change)="update($event.checked)"
           >
@@ -19,7 +32,7 @@
             @for (subroom of room().subroom; track subroom; let i = $index) {
             <li>
               <mat-checkbox
-                [checked]="subroom.completed"
+                [checked]="subroom.selected"
                 (change)="update($event.checked, i)"
               >
                 {{ subroom.name }}
