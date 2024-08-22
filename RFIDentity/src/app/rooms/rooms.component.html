@@ -1,18 +1,6 @@
 <div class="background">
   <div class="filter-container">
-    <div class="inventory-selector">
-      <!-- <mat-form-field>
-        <mat-label>Select Inventory</mat-label>
-        <mat-select
-          [(value)]="currentInventory"
-          (selectionChange)="FetchTableData()"
-        >
-          @for (inventory of inventoryList; track inventory) {
-          <mat-option [value]="inventory.id">{{ inventory.id }}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field> -->
-    </div>
+    <div class="inventory-selector"></div>
     <h4>Inventory: {{ currentInventory }}</h4>
     <h5>Area Filter</h5>
     <div>
@@ -45,8 +33,8 @@
     </div>
   </div>
   <div class="gridcontainer">
-    @for (room of rooms; track room.room ){
-    <app-roomtile [roomnum]="room.room"></app-roomtile>
+    @for (room of datasource?.content; track room ){
+    <app-roomtile [roomnum]="room.roomnum" [roomData]="room"></app-roomtile>
     }
   </div>
 </div>

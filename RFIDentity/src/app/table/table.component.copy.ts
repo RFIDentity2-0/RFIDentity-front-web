@@ -23,8 +23,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ActionsComponent } from '../actions/actions.component';
 import { MatSelectModule } from '@angular/material/select';
-import { FetchTableDataService } from './fetch-table-data.service';
-import { startWith, switchMap } from 'rxjs';
 @Component({
   selector: 'app-table',
   standalone: true,
@@ -41,7 +39,7 @@ import { startWith, switchMap } from 'rxjs';
     ActionsComponent,
     MatSelectModule,
   ],
-  templateUrl: './table.component.html',
+  templateUrl: './table.component.copy.html',
   styleUrl: './table.component.scss',
 })
 export class TableComponent implements AfterViewInit, OnInit {
@@ -57,10 +55,6 @@ export class TableComponent implements AfterViewInit, OnInit {
     'status',
     'action',
   ];
-  // Backend side pagination
-  totalData?: number;
-
-  pageSizes = [5, 10, 15];
 
   // Inventory
   inventoryList: Inventory[] = [{ id: 1, date: new Date('2019-01-16') }];
@@ -80,8 +74,7 @@ export class TableComponent implements AfterViewInit, OnInit {
 
   constructor(
     private _liveAnnouncer: LiveAnnouncer,
-    private inventoryService: InventoryService,
-    private tableDataService: FetchTableDataService
+    private inventoryService: InventoryService
   ) {}
 
   @ViewChild(MatSort) sort!: MatSort;
@@ -91,14 +84,14 @@ export class TableComponent implements AfterViewInit, OnInit {
   // actions function
 
   onFinishHandler() {
-    this.FetchTableData(0, 10);
+    this.FetchTableData();
   }
 
   onSelectInventory() {
     this.inventoryService.setCurrentInventory(this.currentInventory);
     this.getCurrentInventory();
 
-    this.FetchTableData(0, 10);
+    this.FetchTableData();
   }
   async FetchInventorys() {
     const subscription = this.httpClient
@@ -115,17 +108,18 @@ export class TableComponent implements AfterViewInit, OnInit {
     });
   }
 
-  async FetchTableData(pageNumber: Number, pageSize: Number) {
+  async FetchTableData() {
     this.isFetching.set(true);
     const subscription = this.httpClient
       .get<ApiResponse>(
-        `http://localhost:8080/api/inventory/getDashboard?page=${pageNumber}&size=${pageSize}&inventoryId=${this.currentInventory}`
+        `http://localhost:8080/api/inventory/getDashboard?page=0&size=10&inventoryId=${this.currentInventory}`
       )
-
+      // .get<ApiResponse>(
+      //   'https://66b4810f9f9169621ea33918.mockapi.io/rfid/assets'
+      // )
       .subscribe({
         next: (resData) => {
           this.dataSource.data = resData.content; // Assign the response data directly to the dataSource
-
           console.log(resData.content);
         },
         complete: () => this.isFetching.set(false),
@@ -140,7 +134,7 @@ export class TableComponent implements AfterViewInit, OnInit {
 
     this.inventoryService.setCurrentInventory(this.currentInventory);
     this.getCurrentInventory();
-    this.FetchTableData(0, 10);
+    this.FetchTableData();
   }
 
   onDeleteSearchValue() {

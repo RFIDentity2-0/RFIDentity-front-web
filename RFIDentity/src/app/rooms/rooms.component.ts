@@ -2,40 +2,20 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  DestroyRef,
+  inject,
   OnInit,
   signal,
 } from '@angular/core';
-import { RoomSelection } from './rooms.model';
+import { DataResponse, RoomAssets, RoomSelection } from './rooms.model';
 import { RoomtileComponent } from './roomtile/roomtile.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { InventoryService } from '../services/inventory.service';
+import { HttpClient } from '@angular/common/http';
 // Create sample assets
-const ROOMS = [
-  {
-    room: 'room1',
-  },
-  {
-    room: 'room2',
-  },
-  {
-    room: 'room3',
-  },
-  {
-    room: 'room4',
-  },
-  {
-    room: 'room5',
-  },
-  {
-    room: 'room6',
-  },
-  {
-    room: 'room7',
-  },
-];
 
 @Component({
   selector: 'app-rooms',
@@ -52,17 +32,40 @@ const ROOMS = [
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RoomsComponent implements OnInit {
-  // Service Implementantion
+  rooms?: RoomAssets[];
+  datasource?: DataResponse;
+  isFetching = signal(false);
+  private httpClient = inject(HttpClient);
+  private destroyRef = inject(DestroyRef);
+  // Inventory service Implementantion
   constructor(private inventoryService: InventoryService) {}
   currentInventory = 0;
   getCurrentInventory(): void {
     this.currentInventory = this.inventoryService.getCurrentInventory();
   }
-  ngOnInit() {
-    this.getCurrentInventory();
+  async ngOnInit() {
+    await this.getCurrentInventory();
+    this.fetchRoomData(this.currentInventory);
   }
   // Create sample room assets
-  rooms = ROOMS;
+
+  async fetchRoomData(inventoryId: Number, page?: Number, size?: Number) {
+    this.isFetching.set(true);
+    const subscription = this.httpClient
+      .get<DataResponse>(
+        `http://localhost:8080/api/inventory/getUniqueRooms?inventoryId=${inventoryId}&page=0&size=8`
+      )
+      .subscribe({
+        next: (resData) => {
+          this.datasource = resData;
+          console.log(this.datasource.content);
+        },
+        complete: () => this.isFetching.set(false),
+      });
+    this.destroyRef.onDestroy(() => {
+      subscription.unsubscribe();
+    });
+  }
 
   // ----------------------------checkbox logic---------------------------
   readonly room = signal<RoomSelection>({
