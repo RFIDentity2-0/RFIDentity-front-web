@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { RoomTableComponent } from '../roomtable/roomtable.component';
 import { MatButtonModule } from '@angular/material/button';
-import { Room } from '../rooms.model';
+import { RoomContent } from '../rooms.model';
 
 @Component({
   selector: 'app-roomtile',
@@ -13,7 +13,7 @@ import { Room } from '../rooms.model';
 })
 export class RoomtileComponent {
   @Input({ required: true }) roomnum!: string;
-  @Input({ required: true }) roomData!: Room;
+  @Input({ required: true }) roomData!: RoomContent;
 
   constructor(private router: Router) {}
 

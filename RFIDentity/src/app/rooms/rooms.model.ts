@@ -6,21 +6,22 @@ export interface RoomSelection {
   selected: boolean;
   subroom?: RoomSelection[];
 }
-export interface RoomAssets {
-  Room: string;
-}
+// export interface RoomAssets {
+//   Room: string;
+// }
 ///////////////////////////
-export interface Room {
-  [key: string]: Asset[];
+export interface RoomContent {
+  Room: string;
+  Items: Asset[];
 }
 
-export interface DataResponse {
+export interface DataStructure {
   totalPages: number;
-  content: Room[];
+  content: RoomContent[];
   totalElements: number;
 }
 export interface Asset {
   assetId: string;
   description: string;
-  status: string | null;
+  status: string ;
 }

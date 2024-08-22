@@ -1,5 +1,5 @@
 <div class="background">
-  <div class="filter-container">
+  <!-- <div class="filter-container">
     <div class="inventory-selector"></div>
     <h4>Inventory: {{ currentInventory }}</h4>
     <h5>Area Filter</h5>
@@ -31,10 +31,13 @@
         </span>
       </section>
     </div>
-  </div>
+  </div> -->
+  <button (click)="testButtonClick()">test</button>
   <div class="gridcontainer">
-    @for (room of datasource?.content; track room ){
-    <app-roomtile [roomnum]="room.roomnum" [roomData]="room"></app-roomtile>
+
+    @for (room of datasource?.content; track room.Room ){
+
+    <app-roomtile [roomnum]="room.Room" [roomData]="room"></app-roomtile>
     }
   </div>
 </div>

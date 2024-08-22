@@ -24,7 +24,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ActionsComponent } from '../actions/actions.component';
 import { MatSelectModule } from '@angular/material/select';
 import { FetchTableDataService } from './fetch-table-data.service';
-import { startWith, switchMap } from 'rxjs';
 @Component({
   selector: 'app-table',
   standalone: true,
@@ -63,7 +62,7 @@ export class TableComponent implements AfterViewInit, OnInit {
   pageSizes = [5, 10, 15];
 
   // Inventory
-  inventoryList: Inventory[] = [{ id: 1, date: new Date('2019-01-16') }];
+  inventoryList: Inventory[] = [{ id: 2, date: new Date('2019-01-16') }];
   currentInventory = this.inventoryList[0].id;
 
   // getCurrentInventory(): void {
