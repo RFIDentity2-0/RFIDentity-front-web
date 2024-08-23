@@ -3,10 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { Asset, DetailAssets } from '../room-detail.model';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatTableModule } from '@angular/material/table';
+import { ActionDetailedRoomTableComponent } from './action-detailed-room-table/action-detailed-room-table.component';
 @Component({
   selector: 'app-room-detailed-table',
   standalone: true,
-  imports: [MatTableModule],
+  imports: [MatTableModule, ActionDetailedRoomTableComponent],
   templateUrl: './room-detailed-table.component.html',
   styleUrl: './room-detailed-table.component.scss',
 })
@@ -20,6 +21,7 @@ export class RoomDetailedTableComponent implements OnInit {
     'hardwareType',
     'type',
     'status',
+    'comment',
     'action',
   ];
 

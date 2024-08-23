@@ -62,7 +62,7 @@ export class TableComponent implements AfterViewInit, OnInit {
   pageSizes = [5, 10, 15];
 
   // Inventory
-  inventoryList: Inventory[] = [{ id: 2, date: new Date('2019-01-16') }];
+  inventoryList: Inventory[] = [{ id: 1, date: new Date('2019-01-16') }];
   currentInventory = this.inventoryList[0].id;
 
   // getCurrentInventory(): void {
