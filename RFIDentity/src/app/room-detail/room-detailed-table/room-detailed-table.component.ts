@@ -1,6 +1,6 @@
 import { Component, DestroyRef, inject, input, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Asset, DetailAssets } from '../room-detail/room-detail.model';
+import { Asset, DetailAssets } from '../room-detail.model';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatTableModule } from '@angular/material/table';
 @Component({

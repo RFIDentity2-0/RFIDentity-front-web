@@ -64,7 +64,6 @@ export class RoomsComponent implements OnInit {
       .subscribe({
         next: (resData) => {
           this.datasource = resData;
-          console.log(this.datasource);
         },
         complete: () => this.isFetching.set(false),
       });

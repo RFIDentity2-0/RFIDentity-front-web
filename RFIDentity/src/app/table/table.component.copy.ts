@@ -21,7 +21,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { ActionsComponent } from '../actions/actions.component';
+import { ActionsComponent } from './actions/actions.component';
 import { MatSelectModule } from '@angular/material/select';
 @Component({
   selector: 'app-table',
