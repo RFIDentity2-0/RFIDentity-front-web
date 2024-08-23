@@ -167,7 +167,7 @@ export class ActionsComponent {
 
   // Asset values
   @Input({ required: true }) AssetId!: string;
-  @Input({ required: true }) InventoryId!: number;
+  @Input({ required: true }) InventoryId!: number | null;
   @Output() finishEvent = new EventEmitter<void>();
 
   AssetIdvalue = 'temp';

@@ -8,7 +8,12 @@ import {
   OnInit,
   signal,
 } from '@angular/core';
-import { RoomContent, DataStructure, Asset, RoomSelection } from './rooms.model';
+import {
+  RoomContent,
+  DataStructure,
+  Asset,
+  RoomSelection,
+} from './rooms.model';
 import { RoomtileComponent } from './roomtile/roomtile.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
@@ -40,7 +45,7 @@ export class RoomsComponent implements OnInit {
   // Inventory service Implementantion
   constructor(private inventoryService: InventoryService) {}
 
-  currentInventory ?:number;
+  currentInventory?: number;
   getCurrentInventory(): void {
     this.currentInventory = this.inventoryService.getCurrentInventory();
   }
@@ -67,45 +72,41 @@ export class RoomsComponent implements OnInit {
       subscription.unsubscribe();
     });
   }
-  testButtonClick(){
-    console.log("current inventory : " + this.currentInventory)
-    this.fetchRoomData(this.currentInventory);
-    console.log(this.datasource)
-  }
+
   // ----------------------------checkbox logic---------------------------
-  // readonly room = signal<RoomSelection>({
-  //   name: 'Select All',
-  //   selected: false,
-  //   subroom: [
-  //     { name: 'room1', selected: false },
-  //     { name: 'room2', selected: false },
-  //     { name: 'room3', selected: false },
-  //   ],
-  // });
+  readonly room = signal<RoomSelection>({
+    name: 'Select All',
+    selected: false,
+    subroom: [
+      { name: 'room1', selected: false },
+      { name: 'room2', selected: false },
+      { name: 'room3', selected: false },
+    ],
+  });
 
-  // readonly partiallyComplete = computed(() => {
-  //   const room = this.room();
-  //   if (!room.subroom) {
-  //     return false;
-  //   }
-  //   return (
-  //     room.subroom.some((t) => t.selected) &&
-  //     !room.subroom.every((t) => t.selected)
-  //   );
-  // });
+  readonly partiallyComplete = computed(() => {
+    const room = this.room();
+    if (!room.subroom) {
+      return false;
+    }
+    return (
+      room.subroom.some((t) => t.selected) &&
+      !room.subroom.every((t) => t.selected)
+    );
+  });
 
-  // update(selected: boolean, index?: number) {
-  //   this.room.update((room) => {
-  //     if (index === undefined) {
-  //       room.selected = selected;
-  //       room.subroom?.forEach((t) => (t.selected = selected));
-  //     } else {
-  //       room.subroom![index].selected = selected;
-  //       room.selected = room.subroom?.every((t) => t.selected) ?? true;
-  //     }
-  //     return { ...room };
-  //   });
-  // }
+  update(selected: boolean, index?: number) {
+    this.room.update((room) => {
+      if (index === undefined) {
+        room.selected = selected;
+        room.subroom?.forEach((t) => (t.selected = selected));
+      } else {
+        room.subroom![index].selected = selected;
+        room.selected = room.subroom?.every((t) => t.selected) ?? true;
+      }
+      return { ...room };
+    });
+  }
 
   // ---------------------------------------------------------------------
 }
