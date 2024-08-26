@@ -14,7 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { ActionsApiResponse } from './actions.mode';
+import { ActionsApiResponse } from './actions.model';
 import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-actions',
@@ -59,22 +59,18 @@ export class ActionsComponent {
     }
   }
 
-  onFinish() {
+  async onFinish() {
+    await this.submitSapData();
+    await this.submitVMData();
     this.finishEvent.emit();
     this.toggleOverlay();
   }
   // Data fetching for actions tab
   async fetchData() {
-    console.log(
-      `fetching actions INVENTORYID: ${this.InventoryId} ASSETID: ${this.AssetId}`
-    );
     this.isFetching.set(true);
-    console.log(
-      `address of fetching: http://localhost:8080/api/inventory/getDiff/${this.InventoryId}/${this.AssetId}}`
-    );
     const subscription = this.httpClient
       .get<ActionsApiResponse>(
-        `http://localhost:8080/api/inventory/getDiff/${this.InventoryId}/${this.AssetId}`,
+        `http://localhost:8080/api/assets/${this.AssetId}`,
         {
           headers: {
             Accept: 'application/hal+json',
@@ -96,6 +92,7 @@ export class ActionsComponent {
   // Method to submit form data
 
   async submitSapData() {
+    console.log('SUBMITTING SAP DATA');
     this.isFetching.set(true);
     const sapItemData = {
       description: this.dataSource.description,
@@ -105,7 +102,7 @@ export class ActionsComponent {
       // API call to update SAP item
       await this.httpClient
         .put(
-          `http://localhost:8080/api/sapItem/updateSapItem/${this.InventoryId}/${this.AssetId}`,
+          `http://localhost:8080/api/assets/sap/${this.AssetId}`,
           sapItemData,
           {
             headers: {
@@ -143,7 +140,7 @@ export class ActionsComponent {
       // API call to update VM item
       await this.httpClient
         .put(
-          `http://localhost:8080/api/vmItem/updateVmItem/${this.InventoryId}/${this.AssetId}`,
+          `http://localhost:8080/api/assets/vm/${this.AssetId}`,
           vmItemData,
           {
             headers: {
@@ -167,7 +164,6 @@ export class ActionsComponent {
 
   // Asset values
   @Input({ required: true }) AssetId!: string;
-  @Input({ required: true }) InventoryId!: number | null;
   @Output() finishEvent = new EventEmitter<void>();
 
   AssetIdvalue = 'temp';

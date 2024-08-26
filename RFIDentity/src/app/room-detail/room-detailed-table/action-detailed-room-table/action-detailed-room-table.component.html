@@ -1,1 +1,19 @@
-<p>action-detailed-room-table works!</p>
+<!-- overlay-button.component.html -->
+<button class="actions" (click)="onToggleOverlayClick()">Actions</button>
+
+@if (isOverlayVisible) {
+<div class="overlay" (click)="onOverlayClick($event)">
+  <div class="overlay-content" #overlayContent>
+    <!-- Overlay content goes here -->
+    <div class="input-field">
+      <h3>Add a comment</h3>
+      <mat-form-field class="form-field">
+        <mat-label>Comment</mat-label>
+        <input matInput [(ngModel)]="comment" />
+      </mat-form-field>
+      <button mat-button (click)="onFinish()">Finish</button>
+      <p>{{ message }}</p>
+    </div>
+  </div>
+</div>
+}

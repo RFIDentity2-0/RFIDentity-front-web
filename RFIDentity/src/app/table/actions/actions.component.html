@@ -20,7 +20,6 @@
           <mat-label>Room</mat-label>
           <input matInput [(ngModel)]="dataSource.sapRoom" />
         </mat-form-field>
-        <button mat-button (click)="submitSapData()">Submit</button>
         <p>{{ messageSAP }}</p>
       </div>
       <div class="input-field">
@@ -61,12 +60,11 @@
           <mat-label>Department</mat-label>
           <input matInput [(ngModel)]="dataSource.department" />
         </mat-form-field>
-        <button mat-button (click)="submitVMData()">Submit</button>
         <p>{{ messageVM }}</p>
       </div>
     </div>
     <div class="submit">
-      <button mat-button (click)="onFinish()">Finish</button>
+      <button mat-button (click)="onFinish()">SUBMIT</button>
     </div>
   </div>
 </div>

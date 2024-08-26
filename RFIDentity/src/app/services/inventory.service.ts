@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class InventoryService {
-  private currentInventorySubject = new BehaviorSubject<number>(2);
+  private currentInventorySubject = new BehaviorSubject<number>(1);
   currentInventory$ = this.currentInventorySubject.asObservable();
 
   constructor() {}

@@ -13,7 +13,7 @@ import { ActionDetailedRoomTableComponent } from './action-detailed-room-table/a
 })
 export class RoomDetailedTableComponent implements OnInit {
   ngOnInit(): void {
-    this.FetchDetails();
+    this.FetchDetails(0, 10, 1, this.room());
   }
   displayedColumns: string[] = [
     'assetId',
@@ -37,7 +37,7 @@ export class RoomDetailedTableComponent implements OnInit {
   ) {
     const subscription = this.httpClient
       .get<DetailAssets>(
-        `http://localhost:8080/api/inventory/getAssetsForRoom/1/IT%20DC?page=0&size=10`
+        `http://localhost:8080/api/inventory/getAssetsForRoom/1/${roomNum}?page=0&size=10`
       )
       .subscribe({
         next: (resData) => {

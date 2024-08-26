@@ -2,103 +2,33 @@
   <div class="table-label">
     <h1>Assets</h1>
   </div>
-  @if (isFetching()) {<mat-spinner></mat-spinner>} @else {
-  <div class="toolbar">
-    <div class="inventory-selector">
-      <mat-form-field>
-        <mat-label>Select Inventory</mat-label>
-        <mat-select
-          [(value)]="currentInventory"
-          (selectionChange)="onSelectInventory()"
-        >
-          @for (inventory of inventoryList; track inventory) {
-          <mat-option [value]="inventory.id">{{ inventory.id }}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="searchbar">
-      <mat-form-field class="example-form-field">
-        <mat-label>Search</mat-label>
-        <input
-          matInput
-          type="text"
-          [(ngModel)]="filterValue"
-          (keyup)="applyFilter(filterValue)"
-        />
-        @if (filterValue) {
-        <button
-          matSuffix
-          mat-icon-button
-          aria-label="Clear"
-          (click)="onDeleteSearchValue()"
-        >
-          <mat-icon>close</mat-icon>
-        </button>
-        }
-      </mat-form-field>
-    </div>
-  </div>
-
-  <table
-    mat-table
-    [dataSource]="dataSource"
-    matSort
-    (matSortChange)="announceSortChange($event)"
-    class="mat-elevation-z8"
-  >
-    <!--- Note that these columns can be defined in any order.
-              The actual rendered columns are set as a property on the row definition" -->
+  @if (isFetching()) {
+  <mat-spinner></mat-spinner>
+  } @else {
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <!-- Define columns -->
 
     <ng-container matColumnDef="assetId">
-      <th
-        mat-header-cell
-        *matHeaderCellDef
-        mat-sort-header
-        sortActionDescription="Sort by number"
-      >
-        AssetId
-      </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>AssetId</th>
       <td mat-cell *matCellDef="let element">{{ element.assetId }}</td>
     </ng-container>
 
     <ng-container matColumnDef="description">
-      <th
-        mat-header-cell
-        *matHeaderCellDef
-        mat-sort-header
-        sortActionDescription="Sort by name"
-      >
-        Description
-      </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Description</th>
       <td mat-cell *matCellDef="let element">{{ element.description }}</td>
     </ng-container>
 
     <ng-container matColumnDef="vmLocation">
-      <th
-        mat-header-cell
-        *matHeaderCellDef
-        mat-sort-header
-        sortActionDescription="Sort by name"
-      >
-        VM_Location
-      </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>VM_Location</th>
       <td mat-cell *matCellDef="let element">{{ element.vmLocation }}</td>
     </ng-container>
 
     <ng-container matColumnDef="sapRoom">
-      <th
-        mat-header-cell
-        *matHeaderCellDef
-        mat-sort-header
-        sortActionDescription="Sort by name"
-      >
-        SAP_Room
-      </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>SAP_Room</th>
       <td mat-cell *matCellDef="let element">{{ element.sapRoom }}</td>
     </ng-container>
 
-    <ng-container matColumnDef="status">
+    <ng-container matColumnDef="itemStatus">
       <th
         mat-header-cell
         *matHeaderCellDef
@@ -108,7 +38,7 @@
         Status
       </th>
       <td mat-cell *matCellDef="let element">
-        @switch (element.status) { @case ('damaged') {
+        @switch (element.itemStatus) { @case ('Damaged') {
         <div class="status-field">
           <span class="status"
             ><mat-icon
@@ -117,9 +47,9 @@
               fontIcon="cancel"
               class="inactive"
             ></mat-icon> </span
-          >{{ element.status }}
+          >{{ element.itemStatus }}
         </div>
-        } @case ('ok') {
+        } @case ('In Stock') {
         <div class="status-field">
           <span class="status"
             ><mat-icon
@@ -128,7 +58,7 @@
               fontIcon="check_circle"
               class="active"
             ></mat-icon></span
-          >{{ element.status }}
+          >{{ element.itemStatus }}
         </div>
         } @default {
         <div class="status-field">
@@ -139,7 +69,7 @@
               fontIcon="error"
               class="warning"
             ></mat-icon></span
-          >{{ element.status }}
+          >{{ element.itemStatus }}
         </div>
         } }
       </td>
@@ -151,7 +81,6 @@
         <app-actions
           (finishEvent)="onFinishHandler()"
           [AssetId]="element.assetId"
-          [InventoryId]="currentInventory"
         ></app-actions>
       </td>
     </ng-container>
@@ -159,13 +88,41 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
-  <mat-paginator
-    #paginator
-    [length]="totalData"
-    [pageSizeOptions]="pageSizes"
-    showFirstLastButtons
-    aria-label="Select page of assets"
-  >
-  </mat-paginator
-  >}
+
+  <!-- Custom Pagination Controls -->
+  <div class="pagination-controls">
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="onPreviousPage()"
+      [disabled]="!canGoPrevious()"
+    >
+      Previous
+    </button>
+
+    <span>Page {{ pageIndex + 1 }} of {{ getTotalPages() }}</span>
+
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="onNextPage()"
+      [disabled]="!canGoNext()"
+    >
+      Next
+    </button>
+
+    <div>
+      <label for="pageSize">Items per page:</label>
+      <select
+        id="pageSize"
+        [(ngModel)]="pageSize"
+        (change)="onPageSizeChange($event)"
+      >
+        <option *ngFor="let size of pageSizes" [value]="size">
+          {{ size }}
+        </option>
+      </select>
+    </div>
+  </div>
+  }
 </div>
