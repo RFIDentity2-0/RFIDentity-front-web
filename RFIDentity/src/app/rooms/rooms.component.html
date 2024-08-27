@@ -38,4 +38,41 @@
     <app-roomtile [roomnum]="room.location" [roomData]="room"></app-roomtile>
     }
   </div>
+  <!-- Custom Pagination Controls -->
+  <div class="pagination-controls">
+    <div class="page-info">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="onPreviousPage()"
+        [disabled]="!canGoPrevious()"
+      >
+        Previous
+      </button>
+
+      <span>Page {{ pageIndex + 1 }} of {{ getTotalPages() }}</span>
+
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="onNextPage()"
+        [disabled]="!canGoNext()"
+      >
+        Next
+      </button>
+    </div>
+
+    <div class="items-per-page">
+      <label for="pageSize">Items per page:</label>
+      <select
+        id="pageSize"
+        [(ngModel)]="pageSize"
+        (change)="onPageSizeChange($event)"
+      >
+        <option *ngFor="let size of pageSizes" [value]="size">
+          {{ size }}
+        </option>
+      </select>
+    </div>
+  </div>
 </div>

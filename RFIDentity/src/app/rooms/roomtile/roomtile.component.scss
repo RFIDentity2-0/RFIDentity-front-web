@@ -1,14 +1,16 @@
 .roomtile {
-  border: grey solid 1px;
-  background-color: white;
+  border: 1px solid #ccc; /* Lighter grey border for a more subtle look */
+  background-color: #fff; /* Keep the background clean and white */
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* This ensures the button stays at the bottom */
+  justify-content: space-between; /* Ensures the button stays at the bottom */
+  border-radius: 8px; /* Rounded corners for a modern look */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  overflow: hidden; /* Prevents overflow of contents */
 }
 
 .roomtile p {
-  margin-left: 30px;
   margin-top: 15px;
 }
 
@@ -31,6 +33,8 @@
   flex-direction: row;
 }
 .assetCount {
+  margin-left: 13px;
+  user-select: none;
   width: 20px; /* Set a fixed width */
   height: 20px; /* Set a fixed height */
   border: 1px solid rgb(2, 0, 141); /* Optional: Add a border to the square */
@@ -42,3 +46,38 @@
   margin-right: 10px; /* Optional: Add some space to the right of the square */
   color: white;
 }
+//////////////////////////NEW
+
+// .roomtile p {
+//   margin: 0; /* Remove default margins */
+//   color: #333; /* Darker color for text readability */
+//   font-weight: 500; /* Slightly bold text for emphasis */
+// }
+
+// .table-container {
+//   padding: 10px 20px; /* Add padding inside the table container */
+//   flex-grow: 1; /* Allows the table container to grow and fill available space */
+// }
+
+// .tablefooter {
+//   padding: 10px 20px; /* Consistent padding around the footer */
+//   background-color: #f7f9fc; /* Match the footer background with the header */
+//   border-top: 1px solid #eee; /* Separate the footer with a light border */
+// }
+
+// .tablefooter button {
+//   width: 100%;
+//   border-radius: 4px; /* Slight rounding for the button */
+//   padding: 10px; /* Add padding to the button for better touch target */
+//   background-color: #5274e2; /* Matching button color with the assetCount */
+//   color: white; /* White text color for contrast */
+//   text-transform: uppercase; /* Uppercase text for button labels */
+//   font-weight: bold; /* Bold text for emphasis */
+//   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+//   border: none; /* Remove default border */
+//   cursor: pointer; /* Pointer cursor for better UX */
+// }
+
+// .tablefooter button:hover {
+//   background-color: #405dcf; /* Darker shade on hover for interactivity */
+// }
