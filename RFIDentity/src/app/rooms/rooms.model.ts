@@ -11,8 +11,9 @@ export interface RoomSelection {
 // }
 ///////////////////////////
 export interface RoomContent {
-  Room: string;
-  Items: Asset[];
+  location: string;
+  assets: Asset[];
+  assetCount: number;
 }
 
 export interface DataStructure {
@@ -23,5 +24,5 @@ export interface DataStructure {
 export interface Asset {
   assetId: string;
   description: string;
-  status: string ;
+  status: string;
 }

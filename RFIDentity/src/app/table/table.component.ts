@@ -7,10 +7,8 @@ import {
   signal,
   ViewChild,
 } from '@angular/core';
-import { InventoryService } from '../services/inventory.service';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { ApiResponse, Asset, Inventory } from './table.model';
-import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { HttpClient } from '@angular/common/http';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
@@ -20,7 +18,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ActionsComponent } from './actions/actions.component';
 import { MatSelectModule } from '@angular/material/select';
-import { FetchTableDataService } from './fetch-table-data.service';
 import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-table',
@@ -65,12 +62,6 @@ export class TableComponent implements AfterViewInit, OnInit {
 
   private httpClient = inject(HttpClient);
   private destroyRef = inject(DestroyRef);
-
-  constructor(
-    private _liveAnnouncer: LiveAnnouncer,
-    private inventoryService: InventoryService,
-    private tableDataService: FetchTableDataService
-  ) {}
 
   @ViewChild(ActionsComponent) actionsComponent!: ActionsComponent;
 

@@ -1,10 +1,8 @@
 export interface Asset {
   assetId: string;
   description: string;
-  hardwareType: string | null;
-  type: string | null;
-  status: string | null;
-  room: string | null;
+  itemStatus: string | null;
+  comment: string | null;
 }
 
 export interface DetailAssets {

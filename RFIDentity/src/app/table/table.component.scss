@@ -5,75 +5,132 @@ div.tablecontainer {
   flex-direction: column;
   gap: 1rem;
   height: 100%;
-  background-color: azure;
+  background-color: #f9f9f9; /* Subtle light background */
   text-align: center;
-  padding: 1rem;
+  padding: 2rem; /* Increase padding for a more spacious look */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
 }
 
 div.toolbar {
   display: flex;
   width: 100%;
-  align-content: center;
+  align-items: center; /* Corrected to align items centrally */
+  justify-content: space-between; /* Space between toolbar elements */
+  margin-bottom: 1rem; /* Add spacing below toolbar */
 }
+
 div.searchbar {
   display: flex;
-  justify-content: right;
-  width: 100%;
+  justify-content: flex-end; /* Align searchbar to the right */
+  width: 50%; /* Make searchbar half-width */
 }
+
 div.inventory-selector {
   display: flex;
-  width: 100%;
-  justify-content: start;
-  align-items: start;
+  width: 50%; /* Adjust width to match searchbar */
+  justify-content: flex-start;
+  align-items: center; /* Center align vertically */
 }
+
 table {
   width: 100%;
-  box-shadow: none;
-  border: 1px solid hsla(241, 100%, 24%, 0.158);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Soft shadow for the table */
+  border: 1px solid #ddd; /* Light grey border */
+  border-radius: 8px; /* Rounded corners */
+  overflow: hidden; /* Ensure contents stay within rounded corners */
+  background-color: white; /* White background for contrast */
 }
+
 .mat-column-AssetId {
   padding-right: 24px;
   text-align: center;
   font-weight: bold;
+  color: #333; /* Darker text color for better readability */
 }
 
 .mat-mdc-row .mat-mdc-cell {
-  border-bottom: 1px solid hsla(241, 100%, 24%, 0.158);
-  border-top: 1px solid hsla(241, 100%, 24%, 0.158);
+  border-bottom: 1px solid #eee; /* Lighter border color */
+  border-top: 1px solid #eee; /* Lighter border color */
+  padding: 0.75rem; /* Add padding for better spacing */
 }
+
 .mat-mdc-row:hover .mat-mdc-cell {
-  border-color: rgba(128, 128, 128, 0.144);
-  background-color: rgba(128, 128, 128, 0.144);
+  border-color: #ccc; /* Subtle hover effect */
+  background-color: #f5f5f5; /* Light grey background on hover */
 }
+
 .active {
-  color: green;
+  color: #28a745; /* Use Bootstrap's green for active status */
 }
+
 .status {
   display: flex;
-  align-content: center;
-  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem; /* Space between icon and text */
 }
+
 .status-field {
   display: flex;
   align-items: center;
 }
+
 .inactive {
-  color: red;
+  color: #dc3545; /* Bootstrap's red for inactive status */
 }
+
 .warning {
-  color: grey;
+  color: #ffc107; /* Bootstrap's yellow for warnings */
 }
+
 .mat-mdc-cell {
-  border-right: 1px solid hsla(241, 100%, 24%, 0.158);
+  border-right: 1px solid #eee; /* Lighter border color */
 }
+
 .table-label {
   display: flex;
   align-items: left;
-  justify-content: left;
+  justify-content: flex-start;
+  margin-bottom: 1rem; /* Spacing below the label */
+  color: $headerColor; /* Use the header color */
 }
+
 .mat-icon {
   transform: scale(0.85);
 }
+
 tr.mat-mdc-row:nth-child(even) {
-  background-color: rgb(244, 252, 251);
+  background-color: #f8f9fa; /* Subtle alternate row color */
+}
+
+/* Custom pagination controls styling */
+.pagination-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.pagination-controls .page-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem; /* Add space between buttons and page information */
+  flex-grow: 1; /* This will push the items per page dropdown to the right */
+}
+
+.pagination-controls .items-per-page {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.pagination-controls button {
+  border-radius: 4px; /* Rounded corners for buttons */
+}
+
+.pagination-controls select {
+  margin-left: 0.5rem;
+  padding: 0.25rem;
+  border-radius: 4px; /* Rounded corners for the select box */
 }

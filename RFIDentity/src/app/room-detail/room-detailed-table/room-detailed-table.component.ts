@@ -1,4 +1,11 @@
-import { Component, DestroyRef, inject, input, OnInit } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  inject,
+  input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Asset, DetailAssets } from '../room-detail.model';
 import { MatTableDataSource } from '@angular/material/table';
@@ -18,12 +25,12 @@ export class RoomDetailedTableComponent implements OnInit {
   displayedColumns: string[] = [
     'assetId',
     'description',
-    'hardwareType',
-    'type',
     'status',
     'comment',
     'action',
   ];
+  @ViewChild(ActionDetailedRoomTableComponent)
+  actionsComponent!: ActionDetailedRoomTableComponent;
 
   room = input.required<string>();
   dataSource = new MatTableDataSource<Asset>();
@@ -37,7 +44,7 @@ export class RoomDetailedTableComponent implements OnInit {
   ) {
     const subscription = this.httpClient
       .get<DetailAssets>(
-        `http://localhost:8080/api/inventory/getAssetsForRoom/1/${roomNum}?page=0&size=10`
+        `http://localhost:8080/api/locations/insideLocation?location=${roomNum}&page=0&size=10&sort=assetId`
       )
       .subscribe({
         next: (resData) => {
@@ -48,5 +55,8 @@ export class RoomDetailedTableComponent implements OnInit {
     this.destroyRef.onDestroy(() => {
       subscription.unsubscribe();
     });
+  }
+  onFinishComment() {
+    this.FetchDetails(0, 10, 1, this.room());
   }
 }

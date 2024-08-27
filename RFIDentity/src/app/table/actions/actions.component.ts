@@ -96,7 +96,7 @@ export class ActionsComponent {
     this.isFetching.set(true);
     const sapItemData = {
       description: this.dataSource.description,
-      room: this.dataSource.sapRoom,
+      sapRoom: this.dataSource.sapRoom,
     };
     try {
       // API call to update SAP item

@@ -33,9 +33,9 @@
     </div>
   </div>
   <div class="gridcontainer">
-    @for (room of datasource?.content; track room.Room ){
+    @for (room of datasource?.content; track room.location ){
 
-    <app-roomtile [roomnum]="room.Room" [roomData]="room"></app-roomtile>
+    <app-roomtile [roomnum]="room.location" [roomData]="room"></app-roomtile>
     }
   </div>
 </div>

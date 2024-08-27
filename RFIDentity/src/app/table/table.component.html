@@ -91,27 +91,29 @@
 
   <!-- Custom Pagination Controls -->
   <div class="pagination-controls">
-    <button
-      mat-raised-button
-      color="primary"
-      (click)="onPreviousPage()"
-      [disabled]="!canGoPrevious()"
-    >
-      Previous
-    </button>
+    <div class="page-info">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="onPreviousPage()"
+        [disabled]="!canGoPrevious()"
+      >
+        Previous
+      </button>
 
-    <span>Page {{ pageIndex + 1 }} of {{ getTotalPages() }}</span>
+      <span>Page {{ pageIndex + 1 }} of {{ getTotalPages() }}</span>
 
-    <button
-      mat-raised-button
-      color="primary"
-      (click)="onNextPage()"
-      [disabled]="!canGoNext()"
-    >
-      Next
-    </button>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="onNextPage()"
+        [disabled]="!canGoNext()"
+      >
+        Next
+      </button>
+    </div>
 
-    <div>
+    <div class="items-per-page">
       <label for="pageSize">Items per page:</label>
       <select
         id="pageSize"
@@ -124,5 +126,6 @@
       </select>
     </div>
   </div>
+
   }
 </div>

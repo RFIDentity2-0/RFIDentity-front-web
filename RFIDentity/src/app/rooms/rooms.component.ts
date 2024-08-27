@@ -59,7 +59,7 @@ export class RoomsComponent implements OnInit {
     this.isFetching.set(true);
     const subscription = this.httpClient
       .get<DataStructure>(
-        `http://localhost:8080/api/inventory/getUniqueRooms?inventoryId=${inventoryId}&page=0&size=8`
+        `http://localhost:8080/api/locations/locationsToRoomsPage?page=0&size=5&sort=`
       )
       .subscribe({
         next: (resData) => {

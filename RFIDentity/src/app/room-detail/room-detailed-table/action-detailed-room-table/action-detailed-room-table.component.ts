@@ -40,6 +40,7 @@ export class ActionDetailedRoomTableComponent {
   // @Input({ required: true }) AssetId!: string;
   // @Input({ required: true }) InventoryId!: number | null;
   @Input({ required: true }) comment!: string;
+  @Input({ required: true }) assetId!: string;
   @Output() finishEvent = new EventEmitter<void>();
 
   // Overlay settings
@@ -47,10 +48,44 @@ export class ActionDetailedRoomTableComponent {
 
   @ViewChild('overlayContent') overlayContent!: ElementRef;
 
+  private httpClient = inject(HttpClient);
+  private destroyRef = inject(DestroyRef);
+
+  async submitSapData(assetId: string, comment: string) {
+    console.log('SUBMITTING COMMENT');
+    const commentobj = {
+      comment: comment,
+    };
+    try {
+      // API call to update SAP item
+      await this.httpClient
+        .put(
+          `http://localhost:8080/api/locations/comment?assetId=${assetId}`,
+          commentobj,
+          {
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+          }
+        )
+        .toPromise();
+      console.log('Data successfully submitted.');
+      this.message = 'Data succesfully submitted.';
+    } catch (error) {
+      console.error('Error submitting data', error);
+      this.message = 'Error submiting data.';
+    } finally {
+      // this.toggleOverlay(); // Hide overlay after submission
+    }
+  }
+
   toggleOverlay() {
     this.isOverlayVisible = !this.isOverlayVisible;
   }
-  onFinish() {
+  async onFinish() {
+    console.log(this.comment);
+    await this.submitSapData(this.assetId, this.comment);
     this.finishEvent.emit();
     this.toggleOverlay();
   }

@@ -26,3 +26,19 @@
   width: 100%;
   border-radius: 0;
 }
+.tableheader {
+  display: flex;
+  flex-direction: row;
+}
+.assetCount {
+  width: 20px; /* Set a fixed width */
+  height: 20px; /* Set a fixed height */
+  border: 1px solid rgb(2, 0, 141); /* Optional: Add a border to the square */
+  display: flex; /* Use flexbox to center the text */
+  align-items: center; /* Vertically center the text */
+  justify-content: center; /* Horizontally center the text */
+  background-color: rgb(82, 116, 226); /* Optional: Set a background color */
+  border-radius: 4px; /* Optional: Add a small border-radius for rounded corners */
+  margin-right: 10px; /* Optional: Add some space to the right of the square */
+  color: white;
+}

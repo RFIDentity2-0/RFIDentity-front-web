@@ -1,5 +1,8 @@
 <div class="roomtile">
-  <p>{{ roomnum }}</p>
+  <div class="tableheader">
+    <p class="assetCount">{{ roomData.assetCount }}</p>
+    <p>{{ roomnum }}</p>
+  </div>
   <div class="table-container">
     <app-roomtable [dataSource]="roomData"></app-roomtable>
   </div>

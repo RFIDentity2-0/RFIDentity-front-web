@@ -1,0 +1,14 @@
+.mat-mdc-row .mat-mdc-cell {
+  border-bottom: 1px solid hsla(241, 100%, 24%, 0.158);
+  border-top: 1px solid hsla(241, 100%, 24%, 0.158);
+}
+.mat-mdc-row:hover .mat-mdc-cell {
+  border-color: rgba(128, 128, 128, 0.144);
+  background-color: rgba(128, 128, 128, 0.144);
+}
+.mat-mdc-cell {
+  border-right: 1px solid hsla(241, 100%, 24%, 0.158);
+}
+tr.mat-mdc-row:nth-child(even) {
+  background-color: rgb(244, 252, 251);
+}
