@@ -19,6 +19,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ActionsComponent } from './actions/actions.component';
 import { MatSelectModule } from '@angular/material/select';
 import { CommonModule } from '@angular/common';
+
 @Component({
   selector: 'app-table',
   standalone: true,
@@ -51,14 +52,16 @@ export class TableComponent implements AfterViewInit, OnInit {
   ];
 
   // Pagination variables
-  pageSizes = [5, 10, 15];
+  pageSizes = [10, 20, 30];
   totalItems = 0; // Total number of items in the backend
   pageIndex = 0; // Current page index
   pageSize = this.pageSizes[0]; // Default page size
 
-  // Inventory
-  inventoryList: Inventory[] = [{ id: 1, date: new Date('2019-01-16') }];
-  currentInventory = this.inventoryList[0].id;
+  // Sorting
+  sortStatus = 'status,asc';
+
+  // Filtering
+  filterDescription = '';
 
   private httpClient = inject(HttpClient);
   private destroyRef = inject(DestroyRef);
@@ -69,17 +72,22 @@ export class TableComponent implements AfterViewInit, OnInit {
     this.FetchTableData(this.pageIndex, this.pageSize);
   }
 
-  async FetchTableData(pageNumber: number, pageSize: number) {
+  async FetchTableData(
+    pageNumber: number,
+    pageSize: number,
+    sort: string = 'status,asc',
+    locationfilter?: string
+  ) {
     this.isFetching.set(true);
     const subscription = this.httpClient
       .get<ApiResponse>(
-        `http://localhost:8080/api/dashboard/list?page=${pageNumber}&size=${pageSize}&sort=status`
+        `http://localhost:8080/api/dashboard/list?description=${this.filterDescription}&page=${pageNumber}&size=${pageSize}&sort=${sort}`
       )
       .subscribe({
         next: (resData) => {
           this.dataSource.data = resData.content;
-          this.totalItems = 10; // Update totalItems from API response
-          console.log(resData.content);
+          this.totalItems = resData.totalElements; // Update totalItems from API response
+          console.log(resData);
         },
         complete: () => this.isFetching.set(false),
       });
@@ -94,6 +102,16 @@ export class TableComponent implements AfterViewInit, OnInit {
   }
 
   ngAfterViewInit() {}
+
+  async onSortStatusClick() {
+    if (this.sortStatus === 'status,asc') {
+      this.sortStatus = 'status,desc';
+    } else {
+      this.sortStatus = 'status,asc';
+    }
+    console.log(this.sortStatus);
+    this.FetchTableData(this.pageIndex, this.pageSize, this.sortStatus);
+  }
 
   // Custom pagination logic
   onNextPage() {
@@ -113,6 +131,11 @@ export class TableComponent implements AfterViewInit, OnInit {
   onPageSizeChange(event: Event) {
     const selectElement = event.target as HTMLSelectElement;
     this.pageSize = Number(selectElement.value);
+    this.pageIndex = 0; // Reset to first page
+    this.FetchTableData(this.pageIndex, this.pageSize);
+  }
+
+  onFilterChange() {
     this.pageIndex = 0; // Reset to first page
     this.FetchTableData(this.pageIndex, this.pageSize);
   }

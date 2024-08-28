@@ -1,6 +1,15 @@
 <div class="tablecontainer">
   <div class="table-label">
     <h1>Assets</h1>
+    <mat-form-field appearance="fill">
+      <mat-label>Search by Description</mat-label>
+      <input
+        matInput
+        [(ngModel)]="filterDescription"
+        (ngModelChange)="onFilterChange()"
+        placeholder="Search"
+      />
+    </mat-form-field>
   </div>
   @if (isFetching()) {
   <mat-spinner></mat-spinner>
@@ -36,9 +45,10 @@
         sortActionDescription="Sort by name"
       >
         Status
+        <button (click)="onSortStatusClick()">klik</button>
       </th>
       <td mat-cell *matCellDef="let element">
-        @switch (element.itemStatus) { @case ('Damaged') {
+        @switch (element.itemStatus) { @case ('Lack in VM') {
         <div class="status-field">
           <span class="status"
             ><mat-icon

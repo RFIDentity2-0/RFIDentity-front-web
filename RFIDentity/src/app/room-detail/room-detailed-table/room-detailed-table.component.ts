@@ -40,21 +40,39 @@ export class RoomDetailedTableComponent implements OnInit {
     pageNumber?: number,
     pageSize?: number,
     inventoryId?: number,
-    roomNum?: string
+    roomName?: string
   ) {
-    const subscription = this.httpClient
-      .get<DetailAssets>(
-        `http://localhost:8080/api/locations/insideLocation?location=${roomNum}&page=0&size=10&sort=assetId`
-      )
-      .subscribe({
-        next: (resData) => {
-          this.dataSource.data = resData.content;
-          console.log(resData.content);
-        },
+    if (roomName == 'Default Room') {
+      const subscription = this.httpClient
+
+        .get<DetailAssets>(
+          `http://localhost:8080/api/locations/insideLocation?&page=0&size=20&sort=assetId`
+        )
+        .subscribe({
+          next: (resData) => {
+            this.dataSource.data = resData.content;
+            console.log(resData.content);
+          },
+        });
+      this.destroyRef.onDestroy(() => {
+        subscription.unsubscribe();
       });
-    this.destroyRef.onDestroy(() => {
-      subscription.unsubscribe();
-    });
+    } else {
+      const subscription = this.httpClient
+
+        .get<DetailAssets>(
+          `http://localhost:8080/api/locations/insideLocation?location=${roomName}&page=0&size=20&sort=assetId`
+        )
+        .subscribe({
+          next: (resData) => {
+            this.dataSource.data = resData.content;
+            console.log(resData.content);
+          },
+        });
+      this.destroyRef.onDestroy(() => {
+        subscription.unsubscribe();
+      });
+    }
   }
   onFinishComment() {
     this.FetchDetails(0, 10, 1, this.room());
