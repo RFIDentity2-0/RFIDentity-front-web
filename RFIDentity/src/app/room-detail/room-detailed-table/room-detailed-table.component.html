@@ -12,9 +12,44 @@
     <td mat-cell *matCellDef="let element">{{ element.description }}</td>
   </ng-container>
 
-  <ng-container matColumnDef="itemStatus">
+  <ng-container matColumnDef="inventoryStatus">
     <th mat-header-cell *matHeaderCellDef>Status</th>
-    <td mat-cell *matCellDef="let element">{{ element.itemStatus }}</td>
+    <td mat-cell *matCellDef="let element">
+      @switch (element.inventoryStatus) { @case ('MISSING') {
+      <div class="status-field">
+        <span class="status"
+          ><mat-icon
+            aria-hidden="false"
+            aria-label="Example home icon"
+            fontIcon="cancel"
+            class="inactive"
+          ></mat-icon> </span
+        >{{ element.inventoryStatus }}
+      </div>
+      } @case ('OK') {
+      <div class="status-field">
+        <span class="status"
+          ><mat-icon
+            aria-hidden="false"
+            aria-label="Example home icon"
+            fontIcon="check_circle"
+            class="active"
+          ></mat-icon></span
+        >{{ element.inventoryStatus }}
+      </div>
+      } @default {
+      <div class="status-field">
+        <span class="status"
+          ><mat-icon
+            aria-hidden="false"
+            aria-label="Example home icon"
+            fontIcon="error"
+            class="warning"
+          ></mat-icon></span
+        >{{ element.inventoryStatus }}
+      </div>
+      } }
+    </td>
   </ng-container>
 
   <ng-container matColumnDef="comment">

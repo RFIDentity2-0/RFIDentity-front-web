@@ -1,4 +1,4 @@
-$headerColor: #2cd8f7;
+$headerColor: #176472;
 
 div.tablecontainer {
   display: flex;
@@ -139,7 +139,7 @@ tr.mat-mdc-row:nth-child(even) {
 .small-icon {
   font-size: 15px; /* Adjust to the desired size */
 }
-.sort-button{
+.sort-button {
   display: flex;
   align-items: center;
 
@@ -147,6 +147,8 @@ tr.mat-mdc-row:nth-child(even) {
   width: 30px;
 }
 
-.status-header{display: flex;
-flex-direction: row;
-align-items: center;}
+.status-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

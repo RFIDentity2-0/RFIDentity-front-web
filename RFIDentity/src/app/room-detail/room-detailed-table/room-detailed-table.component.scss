@@ -12,3 +12,29 @@
 tr.mat-mdc-row:nth-child(even) {
   background-color: rgb(244, 252, 251);
 }
+.status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* Space between icon and text */
+}
+
+.status-field {
+  display: flex;
+  align-items: center;
+}
+
+.inactive {
+  color: #dc3545; /* Bootstrap's red for inactive status */
+}
+
+.warning {
+  color: #ffc107; /* Bootstrap's yellow for warnings */
+}
+
+.mat-mdc-cell {
+  border-right: 1px solid #eee; /* Lighter border color */
+}
+
+.active {
+  color: #28a745; /* Use Bootstrap's green for active status */
+}

@@ -81,7 +81,7 @@ export class TableComponent implements AfterViewInit, OnInit {
     this.isFetching.set(true);
     const subscription = this.httpClient
       .get<ApiResponse>(
-        `http://localhost:8080/api/dashboard/list?description=${this.filterDescription}&page=${pageNumber}&size=${pageSize}&sort=${sort}`
+        `http://localhost:8080/api/dashboard/list?&description=${this.filterDescription}&page=${pageNumber}&size=${pageSize}&sort=${sort}`
       )
       .subscribe({
         next: (resData) => {

@@ -11,10 +11,12 @@ import { Asset, DetailAssets } from '../room-detail.model';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatTableModule } from '@angular/material/table';
 import { ActionDetailedRoomTableComponent } from './action-detailed-room-table/action-detailed-room-table.component';
+import { MatIconModule } from '@angular/material/icon';
+
 @Component({
   selector: 'app-room-detailed-table',
   standalone: true,
-  imports: [MatTableModule, ActionDetailedRoomTableComponent],
+  imports: [MatTableModule, ActionDetailedRoomTableComponent, MatIconModule],
   templateUrl: './room-detailed-table.component.html',
   styleUrl: './room-detailed-table.component.scss',
 })
@@ -25,7 +27,7 @@ export class RoomDetailedTableComponent implements OnInit {
   displayedColumns: string[] = [
     'assetId',
     'description',
-    'itemStatus',
+    'inventoryStatus',
     'comment',
     'action',
   ];
@@ -46,7 +48,7 @@ export class RoomDetailedTableComponent implements OnInit {
       const subscription = this.httpClient
 
         .get<DetailAssets>(
-          `http://localhost:8080/api/locations/insideLocation?&page=0&size=20&sort=assetId`
+          `http://localhost:8080/api/locations/insideLocation?location=Default%20room&page=0&size=20&sort=inventoryStatus%2Casc`
         )
         .subscribe({
           next: (resData) => {
@@ -61,7 +63,7 @@ export class RoomDetailedTableComponent implements OnInit {
       const subscription = this.httpClient
 
         .get<DetailAssets>(
-          `http://localhost:8080/api/locations/insideLocation?location=${roomName}&page=0&size=20&sort=assetId`
+          `http://localhost:8080/api/locations/insideLocation?location=${roomName}&page=0&size=20&sort=inventoryStatus%2Casc`
         )
         .subscribe({
           next: (resData) => {

@@ -16,5 +16,5 @@ import { CommonModule } from '@angular/common';
 export class RoomTableComponent {
   @Input({ required: true }) dataSource!: RoomContent;
 
-  displayedColumns: string[] = ['assetId', 'description'];
+  displayedColumns: string[] = ['assetId', 'description', 'inventoryStatus'];
 }

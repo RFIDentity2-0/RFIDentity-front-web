@@ -1,9 +1,9 @@
 .color-red {
   color: red;
 }
-tr.mat-mdc-row:nth-child(even) {
-  background-color: rgb(244, 252, 251);
-}
+// tr.mat-mdc-row:nth-child(even) {
+//   background-color: rgb(244, 252, 251);
+// }
 tr.mat-mdc-row {
 }
 .mat-mdc-row .mat-mdc-cell {
@@ -17,6 +17,20 @@ tr.mat-mdc-row {
 .mat-mdc-cell {
   border-right: 1px solid hsla(241, 100%, 24%, 0.158);
 }
-tr.mat-mdc-row:nth-child(even) {
-  background-color: rgb(244, 252, 251);
+// tr.mat-mdc-row:nth-child(even) {
+//   background-color: rgb(244, 252, 251);
+// }
+/* Green background for OK status */
+.status-ok {
+  background-color: #8be6a0; /* light green */
+}
+
+/* Red background for MISSING status */
+.status-missing {
+  background-color: #ec7d87; /* light red */
+}
+
+/* Grey background for NEW status */
+.status-new {
+  background-color: #c6c9ce; /* light grey */
 }
