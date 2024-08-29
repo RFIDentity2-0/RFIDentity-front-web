@@ -34,3 +34,11 @@ tr.mat-mdc-row {
 .status-new {
   background-color: #c6c9ce; /* light grey */
 }
+/* Custom width for Asset ID column */
+/* Set width for Asset ID column header and cells */
+.asset-id-header,
+.asset-id-cell {
+  overflow: hidden; /* Ensures content doesn't overflow */
+  text-overflow: ellipsis; /* Optional: Adds ellipsis if text is too long */
+  white-space: nowrap; /* Prevents text wrapping */
+}

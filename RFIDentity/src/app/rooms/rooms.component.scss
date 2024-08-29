@@ -22,19 +22,24 @@ body {
 .gridcontainer {
   flex: 3; /* Grid container takes more space */
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(20vw, 1fr)); /* Responsive columns */
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(20vw, 1fr)
+  ); /* Responsive columns */
   gap: 20px;
 }
 
 .filter-container {
-  flex: 1; /* Filter container takes less space */
+  flex: 1;
   padding: 20px;
   background-color: white;
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  height: fit-content; /* Ensure the filter container only takes the necessary height */
-  align-self: start; /* Align the filter container to the top */
+  height: fit-content;
+  align-self: start;
+  position: sticky;
+  top: 20px; /* Adjust this value to control how far from the top it should stick */
 }
 
 .gridcontainer > * {

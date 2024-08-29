@@ -48,7 +48,7 @@ export class RoomDetailedTableComponent implements OnInit {
       const subscription = this.httpClient
 
         .get<DetailAssets>(
-          `http://localhost:8080/api/locations/insideLocation?location=Default%20room&page=0&size=20&sort=inventoryStatus%2Casc`
+          `http://localhost:8080/api/locations/insideLocation?location=Default%20Room&page=0&size=20&sort=inventoryStatus%2Casc`
         )
         .subscribe({
           next: (resData) => {

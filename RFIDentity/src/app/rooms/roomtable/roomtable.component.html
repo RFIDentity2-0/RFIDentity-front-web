@@ -1,8 +1,10 @@
 <table mat-table [dataSource]="dataSource.assets" class="mat-elevation-z8">
   <!-- Asset ID Column -->
   <ng-container matColumnDef="assetId">
-    <th mat-header-cell *matHeaderCellDef>AssetId</th>
-    <td mat-cell *matCellDef="let element">{{ element.assetId }}</td>
+    <th mat-header-cell *matHeaderCellDef class="asset-id-header">AssetId</th>
+    <td mat-cell *matCellDef="let element" class="asset-id-cell">
+      {{ element.assetId }}
+    </td>
   </ng-container>
 
   <!-- Description Column -->
