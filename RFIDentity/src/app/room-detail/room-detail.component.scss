@@ -1,0 +1,50 @@
+/* Background wrapper styling */
+.background-wrapper {
+  background-color: #f0f4f8;; /* Light cyan background color */
+  min-height: 100vh; /* Ensure it covers the full viewport height */
+  padding: 20px;
+}
+
+/* Container styling */
+.room-details-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffffff; /* White background for the container */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Title styling */
+.room-title {
+  font-size: 2em;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Table component styling */
+.room-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+/* Additional styling for the table (if needed) */
+.room-table th, .room-table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.room-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.room-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.room-table tr:hover {
+  background-color: #f1f1f1;
+}

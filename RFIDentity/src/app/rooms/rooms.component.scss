@@ -12,23 +12,29 @@ body {
   box-sizing: border-box; /* Ensure padding is included in the element's total height/width */
 }
 
+.content-container {
+  display: flex;
+  width: 100%;
+  margin: 0 auto; /* Center the content horizontally */
+  gap: 20px; /* Space between the columns */
+}
+
+.gridcontainer {
+  flex: 3; /* Grid container takes more space */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(20vw, 1fr)); /* Responsive columns */
+  gap: 20px;
+}
+
 .filter-container {
+  flex: 1; /* Filter container takes less space */
   padding: 20px;
-  margin: 20px auto; /* Center the filter-container horizontally */
   background-color: white;
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  max-width: 1200px; /* Limit the width of the filter container */
-}
-
-.gridcontainer {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  padding: 20px;
-  gap: 20px;
-  max-width: 1200px; /* Limit the width of the grid container */
-  margin: 0 auto; /* Center the grid container horizontally */
+  height: fit-content; /* Ensure the filter container only takes the necessary height */
+  align-self: start; /* Align the filter container to the top */
 }
 
 .gridcontainer > * {

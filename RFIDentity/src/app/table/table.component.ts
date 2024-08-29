@@ -45,7 +45,7 @@ export class TableComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = [
     'assetId',
     'description',
-    'vmLocation',
+    'location',
     'sapRoom',
     'itemStatus',
     'action',
@@ -58,7 +58,7 @@ export class TableComponent implements AfterViewInit, OnInit {
   pageSize = this.pageSizes[0]; // Default page size
 
   // Sorting
-  sortStatus = 'status,asc';
+  sortStatus = 'itemStatus,asc';
 
   // Filtering
   filterDescription = '';
@@ -75,7 +75,7 @@ export class TableComponent implements AfterViewInit, OnInit {
   async FetchTableData(
     pageNumber: number,
     pageSize: number,
-    sort: string = 'status,asc',
+    sort: string = 'itemStatus,asc',
     locationfilter?: string
   ) {
     this.isFetching.set(true);
@@ -104,10 +104,10 @@ export class TableComponent implements AfterViewInit, OnInit {
   ngAfterViewInit() {}
 
   async onSortStatusClick() {
-    if (this.sortStatus === 'status,asc') {
-      this.sortStatus = 'status,desc';
+    if (this.sortStatus === 'itemStatus,asc') {
+      this.sortStatus = 'itemStatus,desc';
     } else {
-      this.sortStatus = 'status,asc';
+      this.sortStatus = 'itemStatus,asc';
     }
     console.log(this.sortStatus);
     this.FetchTableData(this.pageIndex, this.pageSize, this.sortStatus);

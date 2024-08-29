@@ -25,7 +25,7 @@ export class RoomDetailedTableComponent implements OnInit {
   displayedColumns: string[] = [
     'assetId',
     'description',
-    'status',
+    'itemStatus',
     'comment',
     'action',
   ];

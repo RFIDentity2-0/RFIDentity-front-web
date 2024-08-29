@@ -1,78 +1,41 @@
 <div class="background">
-  <div class="filter-container">
-    <div class="inventory-selector"></div>
-    <h4>Inventory: {{ currentInventory }}</h4>
-    <h5>Area Filter</h5>
-    <div>
-      <section class="example-section">
-        <span class="example-list-section">
-          <mat-checkbox
-            class="example-margin"
-            [checked]="room().selected"
-            [indeterminate]="partiallyComplete()"
-            (change)="update($event.checked)"
-          >
-            {{ room().name }}
-          </mat-checkbox>
-        </span>
-        <span class="example-list-section">
-          <ul>
-            @for (subroom of room().subroom; track subroom; let i = $index) {
-            <li>
-              <mat-checkbox
-                [checked]="subroom.selected"
-                (change)="update($event.checked, i)"
-              >
-                {{ subroom.name }}
-              </mat-checkbox>
-            </li>
-            }
-          </ul>
-        </span>
-      </section>
+  <div class="content-container">
+    <div class="gridcontainer">
+      <app-roomtile
+        *ngFor="let room of filteredRooms"
+        [roomnum]="room.location"
+        [roomData]="room"
+      ></app-roomtile>
     </div>
-  </div>
-  <div class="gridcontainer">
-    @for (room of datasource?.content; track room.location ){
-
-    <app-roomtile [roomnum]="room.location" [roomData]="room"></app-roomtile>
-    }
-  </div>
-  <!-- Custom Pagination Controls -->
-  <div class="pagination-controls">
-    <div class="page-info">
-      <button
-        mat-raised-button
-        color="primary"
-        (click)="onPreviousPage()"
-        [disabled]="!canGoPrevious()"
-      >
-        Previous
-      </button>
-
-      <span>Page {{ pageIndex + 1 }} of {{ getTotalPages() }}</span>
-
-      <button
-        mat-raised-button
-        color="primary"
-        (click)="onNextPage()"
-        [disabled]="!canGoNext()"
-      >
-        Next
-      </button>
-    </div>
-
-    <div class="items-per-page">
-      <label for="pageSize">Items per page:</label>
-      <select
-        id="pageSize"
-        [(ngModel)]="pageSize"
-        (change)="onPageSizeChange($event)"
-      >
-        <option *ngFor="let size of pageSizes" [value]="size">
-          {{ size }}
-        </option>
-      </select>
+    <div class="filter-container inventory-selector">
+      <h4>Inventory: Latest</h4>
+      <h5>Area Filter</h5>
+      <div>
+        <section class="example-section">
+          <span class="example-list-section">
+            <mat-checkbox
+              class="example-margin"
+              [checked]="room().selected"
+              [indeterminate]="partiallyComplete()"
+              (change)="update($event.checked)"
+            >
+              {{ room().name }}
+            </mat-checkbox>
+          </span>
+          <span class="example-list-section">
+            <ul>
+              <li *ngFor="let subroom of room().subroom; let i = index">
+                <mat-checkbox
+                  [checked]="subroom.selected"
+                  (change)="update($event.checked, i)"
+                >
+                  {{ subroom.name }}
+                </mat-checkbox>
+              </li>
+            </ul>
+          </span>
+        </section>
+      </div>
     </div>
   </div>
 </div>

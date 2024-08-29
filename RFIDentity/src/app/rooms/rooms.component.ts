@@ -1,17 +1,14 @@
 import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
   Component,
-  computed,
-  DestroyRef,
   inject,
   OnInit,
   signal,
+  computed,
+  DestroyRef,
 } from '@angular/core';
 import {
   RoomContent,
   DataStructure,
-  Asset,
   RoomSelection,
 } from './rooms.model';
 import { RoomtileComponent } from './roomtile/roomtile.component';
@@ -19,10 +16,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
-import { InventoryService } from '../services/inventory.service';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-// Create sample assets
 
 @Component({
   selector: 'app-rooms',
@@ -36,7 +31,7 @@ import { CommonModule } from '@angular/common';
     CommonModule,
   ],
   templateUrl: './rooms.component.html',
-  styleUrl: './rooms.component.scss',
+  styleUrls: ['./rooms.component.scss'],
 })
 export class RoomsComponent implements OnInit {
   rooms?: RoomContent[];
@@ -44,20 +39,18 @@ export class RoomsComponent implements OnInit {
   isFetching = signal(false);
   private httpClient = inject(HttpClient);
   private destroyRef = inject(DestroyRef);
-  // Inventory service Implementantion
-  constructor(private inventoryService: InventoryService) {}
 
-  currentInventory?: number;
-  getCurrentInventory(): void {
-    this.currentInventory = this.inventoryService.getCurrentInventory();
-  }
+  readonly room = signal<RoomSelection>({
+    name: 'Select All',
+    selected: true, // Set default to true
+    subroom: [],
+  });
+
   ngOnInit() {
-    this.getCurrentInventory();
-    this.fetchRoomData(this.currentInventory);
+    this.fetchRoomData();
   }
-  // Create sample room assets
 
-  async fetchRoomData(inventoryId?: Number, page?: Number, size?: Number) {
+  async fetchRoomData(page?: number, size?: number) {
     this.isFetching.set(true);
     const subscription = this.httpClient
       .get<DataStructure>(
@@ -66,7 +59,13 @@ export class RoomsComponent implements OnInit {
       .subscribe({
         next: (resData) => {
           this.datasource = resData;
-          this.totalItems = resData.totalElements;
+          this.room.update((room) => ({
+            ...room,
+            subroom: resData.content.map((roomContent) => ({
+              name: roomContent.location,
+              selected: true, // Set default to true
+            })),
+          }));
         },
         complete: () => this.isFetching.set(false),
       });
@@ -74,22 +73,6 @@ export class RoomsComponent implements OnInit {
       subscription.unsubscribe();
     });
   }
-  // Pagination variables
-  pageSizes = [1, 2, 5, 10, 15];
-  totalItems = 0;
-  pageIndex = 0;
-  pageSize = this.pageSizes[0];
-
-  // ----------------------------checkbox logic---------------------------
-  readonly room = signal<RoomSelection>({
-    name: 'Select All',
-    selected: false,
-    subroom: [
-      { name: 'room1', selected: false },
-      { name: 'room2', selected: false },
-      { name: 'room3', selected: false },
-    ],
-  });
 
   readonly partiallyComplete = computed(() => {
     const room = this.room();
@@ -115,40 +98,8 @@ export class RoomsComponent implements OnInit {
     });
   }
 
-  // ---------------------------------------------------------------------
-
-  // Pagination logic
-  // Custom pagination logic
-  onNextPage() {
-    if ((this.pageIndex + 1) * this.pageSize < this.totalItems) {
-      this.pageIndex++;
-      this.fetchRoomData(this.pageIndex, this.pageSize);
-    }
-  }
-
-  onPreviousPage() {
-    if (this.pageIndex > 0) {
-      this.pageIndex--;
-      this.fetchRoomData(this.pageIndex, this.pageSize);
-    }
-  }
-
-  onPageSizeChange(event: Event) {
-    const selectElement = event.target as HTMLSelectElement;
-    this.pageSize = Number(selectElement.value);
-    this.pageIndex = 0; // Reset to first page
-    this.fetchRoomData(this.pageIndex, this.pageSize);
-  }
-
-  getTotalPages(): number {
-    return Math.ceil(this.totalItems / this.pageSize);
-  }
-
-  canGoNext(): boolean {
-    return (this.pageIndex + 1) * this.pageSize < this.totalItems;
-  }
-
-  canGoPrevious(): boolean {
-    return this.pageIndex > 0;
+  get filteredRooms() {
+    const selectedRooms = this.room().subroom?.filter(subroom => subroom.selected).map(subroom => subroom.name);
+    return this.datasource?.content.filter(room => selectedRooms?.includes(room.location));
   }
 }

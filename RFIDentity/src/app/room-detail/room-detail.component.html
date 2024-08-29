@@ -1,3 +1,6 @@
-<h1>Room Details : {{ roomnum }}</h1>
-<!-- <app-room-detailed-table [room]="roomnum"></app-room-detailed-table> -->
-<app-room-detailed-table [room]="roomnum"></app-room-detailed-table>
+<div class="background-wrapper">
+  <div class="room-details-container">
+    <h1 class="room-title">Room Details: {{ roomnum }}</h1>
+    <app-room-detailed-table [room]="roomnum" class="room-table"></app-room-detailed-table>
+  </div>
+</div>
